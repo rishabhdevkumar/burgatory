@@ -13,6 +13,28 @@
   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
   <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <script>
+function change_category_color_by_id(temp) {
+  const value = 'category=' + temp;
+  $.ajax({
+    url: "category_menu_ajax.php",
+    type: "POST",
+    data: value,
+    success: function (data) {
+      $("#city").html(data); // container where result shows
+
+      // highlight active button
+      $(".menu-btn").removeClass("color_act");
+      $("button[onclick*='" + temp + "']").addClass("color_act");
+    },
+    error: function (jqXHR, textstatus, errorThrown) {
+      console.log(textstatus, errorThrown);
+    }
+  });
+}
+
+</script>
+
 </head>
 
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
@@ -155,6 +177,14 @@
       </div>
     </div>
   </div>
+  <style>
+    .color_act
+    {
+      background: skyblue;
+      color:red;
+      font-weight: 600;
+    }
+  </style>
   <!--select button section-->
   <div class="container sel_but">
     <div class="row sel_but_row">
@@ -165,7 +195,13 @@
           while($fetch_catagory = mysqli_fetch_array($run_catagory))
           {
         ?>
-        <button class="menu-btn"><?php echo $fetch_catagory['name']; ?></button>
+       <button 
+  class="menu-btn <?php if($fetch_catagory['id']=='1'){echo 'color_act';}?>" 
+  style="padding-top: 12px" 
+  onclick="change_category_color_by_id('<?php echo $fetch_catagory['id']; ?>')">
+  <?php echo $fetch_catagory['name']; ?>
+</button>
+
         <?php
           }
         ?>
@@ -177,7 +213,7 @@
   <div class="row dgtk">
     <div class="col-md-12 col-sm-12 col-xs-12 menu_margin">
       <?php
-        $get_menus = "SELECT * FROM `menu` WHERE status = 'y'";
+        $get_menus = "SELECT * FROM `menu` WHERE status = 'y' and category_id='1'";
         $run_menus = mysqli_query($connect, $get_menus);
         while($menu = mysqli_fetch_array($run_menus)) {
       ?>
