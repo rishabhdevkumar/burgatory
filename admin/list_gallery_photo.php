@@ -1,0 +1,190 @@
+<?php
+	include("config.php");
+	$check_page = "SELECT * FROM `gallery_photo` WHERE 1";
+	$run_check=mysqli_query($connect,$check_page);
+	
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<title>BURGATORY ADMIN List pages</title>
+
+	<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery.notifyBar.js"></script>
+	<link rel="stylesheet" href="css/notifyBar.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="css/reset.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
+	<script type="text/javascript" src="js/jquery.configuration.js"></script>
+
+	<script type="text/javascript">
+		function change_status(temp, temp1) {
+			$.post('change_status2.php?id=' + temp + '&status=' + temp1, function (data) {
+				if (data) {
+					$('#did_' + temp).html(data);
+				}
+			});
+		}
+
+	</script>
+
+</head>
+
+<body style="background: #f8f8f8ff">
+	<div id="body-wrapper" style="background: #f8f8f8ff">
+		<div id="sidebar">
+			<div id="sidebar-wrapper">
+				<?php require 'sidebar.php';?>
+			</div>
+		</div>
+		<div id="main-content">
+			<div class="content-box" style="box-shadow: 0px 0 12px 5px rgba(128, 122, 122, 0.29);width: 100%;">
+				<div class="content-box-header">
+					<h3>Photo list</h3>
+					<ul class="content-box-tabs">
+						<li><a href="add_pages.php">Add pages</a></li>
+						<li><a href="list_pages.php" class="default-tab">Photo list</a></li>
+					</ul>
+					<div class="clear"></div>
+				</div>
+				<div class="content-box-content">
+					<div class="tab-content">
+						<form action="" id="dashboard" name="dashboard" method="post">
+							<table>
+								<thead>
+									<tr>
+										<th>image</th>
+										<th>status</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php
+										while($fetch_page=mysqli_fetch_array($run_check))
+										{		
+									?>
+									<tr>
+										<td>
+											<img src="../admin/menu_img/<?php echo $fetch_page['gallery_image']?>"
+											style="height: 30px;width:40px">
+										</td>
+										<td style=" vertical-align: top;">
+											<div id="did_<?=$fetch_page['id']?>">
+												<?php if($fetch_page['status']=='Y')
+													 { 
+                                                ?>
+												<a href="javascript:void(0)" style="color:green;"
+													Title="Click here to deactivate"><img src="images/act.png"
+													width="24" height="24" border="0" alt=""
+													onclick="change_status('<?php echo $fetch_page['id'] ?>', 'yes' )">
+												</a>
+												<?php 
+													}
+													 else 
+												    { 
+												?>
+												<a href="javascript:void(0)" style="color:red;"
+													Title="Click here to activate"><img src="images/deact.png"
+													width="24" height="24" border="0" alt=""
+													onclick="change_status('<?php echo $fetch_page['id'] ?>', 'no' )">
+												</a>
+												<?php
+													 }	 
+												?>
+											</div>
+										</td>
+										<td style=" vertical-align: top;">
+											<a href="edit_gallery.php?eid=<?=$fetch_page['id']?>" title="Edit"><img
+													src="images/pencil.png" alt="Edit" /></a>&nbsp;
+											<a href="delete.php?gall_id=<?php echo $fetch_page['id']?>"
+												onclick="return confirm('Are you sure you want to delete this page?')"
+												title="Delete"><img src="images/cross.png" alt="Delete" /></a> &nbsp;
+										</td>
+									</tr>
+									<?php
+										}
+									?>
+								</tbody>
+							</table>
+							<div class="clear"></div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+</body>
+
+</html>
+<style>
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  background: #fff;
+  overflow: hidden;
+}
+
+thead {
+  background: #1d4c7cff; 
+  color: #fff;
+  text-align: left;
+}
+
+thead th {
+  padding: 12px 15px;
+  font-size: 13px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+tbody tr {
+  border-bottom: 1px solid #e0e0e0;
+  transition: background 0.2s ease-in-out;
+}
+
+tbody tr:hover {
+  background: #f9f9f9;
+}
+
+tbody td {
+  padding: 10px 15px;
+  vertical-align: middle;
+  color: #333;
+}
+
+tbody td img {
+  border-radius: 4px;
+  height: 40px;
+  width: 50px;
+  object-fit: cover;
+  box-shadow: 0px 1px 3px rgba(0,0,0,0.2);
+}
+
+tbody td a img {
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+tbody td a img:hover {
+  transform: scale(1.1);
+}
+
+td a {
+  text-decoration: none;
+  margin: 0 5px;
+}
+
+td a[title="Edit"] img {
+  filter: hue-rotate(200deg);
+}
+
+td a[title="Delete"] img {
+  filter: hue-rotate(0deg); 
+}
+
+</style>
