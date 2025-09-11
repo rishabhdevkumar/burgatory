@@ -14,25 +14,40 @@
   <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
   <script>
-function change_category_color_by_id(temp) {
-  const value = 'category=' + temp;
-  $.ajax({
-    url: "category_menu_ajax.php",
-    type: "POST",
-    data: value,
-    success: function (data) {
-      $("#city").html(data); // container where result shows
+  function change_category_color_by_id(temp) {
+      const category = temp;
+      const value = 'category=' + category;
+    $.ajax({
+        url: "category_menu_ajax.php",
+        type: "POST", 
+        data: value,
+        success: function (data) {
+            $(".menu_margin").html(data);
 
-      // highlight active button
-      $(".menu-btn").removeClass("color_act");
-      $("button[onclick*='" + temp + "']").addClass("color_act");
-    },
-    error: function (jqXHR, textstatus, errorThrown) {
-      console.log(textstatus, errorThrown);
-    }
-  });
+            $(".menu-btn").removeClass("color_act");
+            $("button[onclick*='" + temp + "']").addClass("color_act");
+        },
+        error: function (jqXHR, textstatus, errorThrown) {
+            console.log(textstatus, errorThrown);
+        }
+    });
 }
 
+    function get_city_by_state(temp) {
+      const state = temp;
+      const value = 'state=' + state;
+      $.ajax({
+        url: "city_ajax.php",
+        type: "POST",
+        data: value,
+        success: function (data) {
+          $("#city").html(data);
+        },
+        error: function (jqXHR, textstatus, errorThrown) {
+          console.log(textstatus, errorThrown);
+        }
+      })
+    }
 </script>
 
 </head>
@@ -196,12 +211,11 @@ function change_category_color_by_id(temp) {
           {
         ?>
        <button 
-  class="menu-btn <?php if($fetch_catagory['id']=='1'){echo 'color_act';}?>" 
-  style="padding-top: 12px" 
-  onclick="change_category_color_by_id('<?php echo $fetch_catagory['id']; ?>')">
-  <?php echo $fetch_catagory['name']; ?>
-</button>
-
+          class="menu-btn <?php if($fetch_catagory['id']=='1'){echo 'color_act';}?>" 
+          style="padding-top: 12px" id="category" name="category"
+          onclick="change_category_color_by_id('<?php echo $fetch_catagory['id']; ?>')">
+          <?php echo $fetch_catagory['name']; ?>
+        </button>
         <?php
           }
         ?>
@@ -217,7 +231,7 @@ function change_category_color_by_id(temp) {
         $run_menus = mysqli_query($connect, $get_menus);
         while($menu = mysqli_fetch_array($run_menus)) {
       ?>
-        <div class="col-md-4 col-sm-12 col-xs-12">
+        <div class="col-md-4 col-sm-12 col-xs-12" id="menu-btn">
           <div class="col-md-12 col-sm-12 col-xs-12 border_st pad_rem">
             <div class="col-md-12 col-sm-12 col-xs-12 cbc item1 fix_height pad_rem opb1">
               <?php if($menu['is_new'] == 'y'){ ?>
