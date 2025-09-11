@@ -16,7 +16,7 @@
   $command_run = mysqli_query($connect, $login_user);
   $fetch_rec = mysqli_fetch_array($command_run);
 
-// ---------- update user data ------------
+  // ---------- update user data ------------
 
   $id = $_SESSION['user_id'];
   if(isset($_POST['save']))
@@ -52,7 +52,39 @@
 		}
 		}
 	}
-// ------------- update password ------------
+
+  // ------------- update profile ------------
+$show_profile = "SELECT * FROM user WHERE id = '".$id."'";
+$run = mysqli_query($connect, $show_profile);
+$fetch_image = mysqli_fetch_array($run);
+
+// if profile update form is submitted
+if (isset($_POST['profile'])) {
+    $new_image = $_FILES['userprofile']['name'];
+
+    if (!empty($new_image)) {
+        // update only if new image selected
+        $update_image = "UPDATE user SET profile = '".$new_image."' WHERE id = '".$id."'";
+        $run_update = mysqli_query($connect, $update_image);
+
+        if ($run_update) {
+            move_uploaded_file($_FILES['userprofile']['tmp_name'], 'profile_image/'.$new_image);
+            echo '<script>alert("Profile updated successfully")</script>';
+            $fetch_image['profile'] = $new_image; // update local variable too
+        } else {
+            echo '<script>alert("Profile not updated")</script>';
+        }
+    }
+}
+
+// check profile image exists or set default
+if (!empty($fetch_image['profile'])) {
+    $profile_image = "profile_image/" . $fetch_image['profile'];
+} else {
+    $profile_image = "image/_AAA1989-bearbeitet.jpg"; // default image
+}
+	
+  // ------------- update password ------------
 if(isset($_POST['update']))
 	{
 		$New_password = md5($_POST['password']);
@@ -83,7 +115,6 @@ if(isset($_POST['update']))
 	}
 	
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -203,17 +234,8 @@ if(isset($_POST['update']))
           } else {
             error.insertAfter(element);
           }
-
-          // Add the span element, if doesn't exists, and apply the icon classes to it.
-          /*if ( !element.next( "span" )[ 0 ] ) {
-            $( "<span class='glyphicon glyphicon-remove'></span>" ).insertAfter( element );
-          }*/
         },
         success: function (label, element) {
-          // Add the span element, if doesn't exists, and apply the icon classes to it.
-          /*          if ( !$( element ).next( "span" )[ 0 ] ) {
-                      $( "<span class='glyphicon glyphicon-ok'></span>" ).insertAfter( $( element ) );
-                    }*/
         },
         highlight: function (element, errorClass, validClass) {
           $(element).parents(".valid").addClass("has-error").removeClass("has-success");
@@ -223,9 +245,14 @@ if(isset($_POST['update']))
           $(element).parents(".valid").addClass("has-success").removeClass("has-error");
           /*$( element ).next( "span" ).addClass( "glyphicon-ok" ).removeClass( "glyphicon-remove" );*/
         }
-
       });
 
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+      document.getElementById('editProfilebutton').addEventListener('click', function (e) {
+        e.preventDefault();
+        console.log("Edit Profile button clicked");
+      });
     });
 
     document.addEventListener("DOMContentLoaded", function () {
@@ -259,9 +286,7 @@ if(isset($_POST['update']))
         }
       })
     }
-
   </script>
-
 
 </head>
 
@@ -389,7 +414,6 @@ if(isset($_POST['update']))
       </div>
     </div>
   </nav>
-
   <div class="container-fluid">
     <div class="row imagd-height">
       <img src="image/restaurant-interior.jpg" class="pos_re">
@@ -398,7 +422,6 @@ if(isset($_POST['update']))
       </div>
     </div>
   </div>
-
   <div class="container">
     <div class="row">
       <div class="col-md-11 col-sm-12 col-xs-12">
@@ -406,7 +429,7 @@ if(isset($_POST['update']))
           <div class="col-md-12 col-sm-12 col-xs-12 border_st">
             <div class="col-md-12 col-sm-12 col-xs-12 ">
               <div class="col-md-4 col-sm-4 col-xs-4 text-start">
-                <img src="./image/2.jpg" class="rounded-circle" alt="Profile" width="50" height="50">
+                <img src="<?php echo $profile_image; ?>" class="rounded-circle" alt="Profile" width="50" height="50">
               </div>
               <div class="col-md-4 col-sm-4 col-xs-4 myacc_mar1">
                 <h4 class="text_c1 regis_font text-center">MY ACCOUNT</h4>
@@ -423,7 +446,8 @@ if(isset($_POST['update']))
                     </a>
                     <ul class="dropdown-menu toggle_radius drop_back1">
                       <li>
-                        <a href="#" class="drop_back">
+                        <a href="#" class="drop_back" id="editProfilebutton" data-toggle="modal"
+                          data-target="#profileModal">
                           <img src="../burgatory/image/edit.png" alt="icon" width="15px" height="15px"> Change Profile
                         </a>
                       </li>
@@ -460,6 +484,37 @@ if(isset($_POST['update']))
                     </div>
                   </div>
                 </div>
+                <div class="modal fade" id="profileModal" tabindex="-1" role="dialog"
+                  aria-labelledby="profileModalLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content rounded-3 shadow">
+                      <div class="modal-header bg-primary text-white d-flex align-items-center">
+                        <button type="button" class="close text-white mr-2" data-dismiss="modal" aria-label="Close"
+                          style="opacity:1;">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h5 class="modal-title font-weight-bold mb-0" id="profileModalLabel">
+                          👤 EDIT PROFILE
+                        </h5>
+                      </div>
+                      <div class="modal-body">
+                        <form id="updateProfileForm" method="POST" action="" enctype="multipart/form-data">
+                          <div>
+                            <img src="" alt="" style="margin: 0px 25px 0px 220px; border-radius: 5px;" height="90px" width="120px">
+                          </div><br>
+                          <div class="form-group">
+                            <label for="username" class="font-weight-bold">Choose Profile</label>
+                            <input type="file" class="form-control" id="userprofile" name="userprofile">
+                          </div>
+                          <div class="d-flex justify-content-between mt-4">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="submit" name="profile" value="save" class="btn btn-primary">Update Profile</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <div class="modal fade" id="passwordModal" tabindex="-1" role="dialog"
                   aria-labelledby="passwordModalLabel" aria-hidden="true">
                   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -475,35 +530,36 @@ if(isset($_POST['update']))
                       </div>
                       <div class="modal-body">
                         <form id="updatePasswordForm" method="POST" action="">
-                        <div class="form-group">
-                          <label for="old_password" class="font-weight-bold">Old Password</label>
-                          <div class="valid">
-                            <input type="password" class="form-control" id="old_password" name="old_password"
-                              placeholder="Enter old password" required>
-                          </div>
-                        </div>
-                        <div class="form-group myacc_mar2">
-                          <div class="row">
-                            <div class="col-md-6 col-sm-12">
-                              <label class="font-weight-bold">New Password</label>
-                              <div class="valid">
-                                <input type="password" class="form-control my_acc_top" placeholder="New Password"
-                                  id="password" name="password" required>
-                              </div>
-                            </div>
-                            <div class="col-md-6 col-sm-12 my_acc_top2">
-                              <label class="font-weight-bold">Confirm Password</label>
-                              <div class="valid">
-                                <input type="password" class="form-control my_acc_top" placeholder="Confirm Password"
-                                  id="confirm_password" name="confirm_password" required>
-                              </div>
+                          <div class="form-group">
+                            <label for="old_password" class="font-weight-bold">Old Password</label>
+                            <div class="valid">
+                              <input type="password" class="form-control" id="old_password" name="old_password"
+                                placeholder="Enter old password" required>
                             </div>
                           </div>
-                        </div>
-                        <div class="d-flex justify-content-between mt-4">
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                          <button type="submit" value="submit" id="update" name="update" class="btn btn-primary">Save</button>
-                        </div>
+                          <div class="form-group myacc_mar2">
+                            <div class="row">
+                              <div class="col-md-6 col-sm-12">
+                                <label class="font-weight-bold">New Password</label>
+                                <div class="valid">
+                                  <input type="password" class="form-control my_acc_top" placeholder="New Password"
+                                    id="password" name="password" required>
+                                </div>
+                              </div>
+                              <div class="col-md-6 col-sm-12 my_acc_top2">
+                                <label class="font-weight-bold">Confirm Password</label>
+                                <div class="valid">
+                                  <input type="password" class="form-control my_acc_top" placeholder="Confirm Password"
+                                    id="confirm_password" name="confirm_password" required>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="d-flex justify-content-between mt-4">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="submit" value="submit" id="update" name="update"
+                              class="btn btn-primary">Save</button>
+                          </div>
                         </form>
                       </div>
                     </div>
