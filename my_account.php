@@ -54,36 +54,27 @@
 	}
 
   // ------------- update profile ------------
-$show_profile = "SELECT * FROM user WHERE id = '".$id."'";
-$run = mysqli_query($connect, $show_profile);
-$fetch_image = mysqli_fetch_array($run);
+  $id = $_SESSION['user_id'];
+	$change_image = "SELECT * FROM user WHERE id = '".$id."'";
+	$run = mysqli_query($connect,$change_image);
+	$fetch_image = mysqli_fetch_array($run);
+	if(isset($_POST['submit']))
+	{
+		$new_image = ($_FILES['userprofile']['name']);
+		$update_image = "UPDATE user Set profile = '".$new_image."' WHERE id = '".$id."'";
+		echo $run_update = mysqli_query($connect,$update_image);
+		if($run_update)
+		{
+			// header("location:dashboard.php");
+			move_uploaded_file(($_FILES['userprofile']['tmp_name']),'profile_image/'.$new_image);
+			echo '<script>alert("profile update")</script>';
+		}else
+		{
+			echo '<script>alert("Profile does not update")</script>';
+		}
 
-// if profile update form is submitted
-if (isset($_POST['profile'])) {
-    $new_image = $_FILES['userprofile']['name'];
+	}
 
-    if (!empty($new_image)) {
-        // update only if new image selected
-        $update_image = "UPDATE user SET profile = '".$new_image."' WHERE id = '".$id."'";
-        $run_update = mysqli_query($connect, $update_image);
-
-        if ($run_update) {
-            move_uploaded_file($_FILES['userprofile']['tmp_name'], 'profile_image/'.$new_image);
-            echo '<script>alert("Profile updated successfully")</script>';
-            $fetch_image['profile'] = $new_image; // update local variable too
-        } else {
-            echo '<script>alert("Profile not updated")</script>';
-        }
-    }
-}
-
-// check profile image exists or set default
-if (!empty($fetch_image['profile'])) {
-    $profile_image = "profile_image/" . $fetch_image['profile'];
-} else {
-    $profile_image = "image/_AAA1989-bearbeitet.jpg"; // default image
-}
-	
   // ------------- update password ------------
 if(isset($_POST['update']))
 	{
@@ -291,7 +282,7 @@ if(isset($_POST['update']))
 </head>
 
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
-  <nav class="navbar navbar-default navbar-fixed-top ggg">
+  <!-- <nav class="navbar navbar-default navbar-fixed-top ggg">
     <div class="container-fluid jjj">
       <div class="navbar-header ddd">
         <button type="button" class="navbar-toggle nnn" data-toggle="collapse" data-target="#myNavbar">
@@ -421,7 +412,7 @@ if(isset($_POST['update']))
         <h3 class="abt_width">MY ACCOUNT</h3>
       </div>
     </div>
-  </div>
+  </div> -->
   <div class="container">
     <div class="row">
       <div class="col-md-11 col-sm-12 col-xs-12">
@@ -429,7 +420,7 @@ if(isset($_POST['update']))
           <div class="col-md-12 col-sm-12 col-xs-12 border_st">
             <div class="col-md-12 col-sm-12 col-xs-12 ">
               <div class="col-md-4 col-sm-4 col-xs-4 text-start">
-                <img src="<?php echo $profile_image; ?>" class="rounded-circle" alt="Profile" width="50" height="50">
+                <img src="profile_image/<?php echo $fetch_image['profile']?>" class="rounded-circle" alt="Profile" width="50" height="50">
               </div>
               <div class="col-md-4 col-sm-4 col-xs-4 myacc_mar1">
                 <h4 class="text_c1 regis_font text-center">MY ACCOUNT</h4>
@@ -500,7 +491,7 @@ if(isset($_POST['update']))
                       <div class="modal-body">
                         <form id="updateProfileForm" method="POST" action="" enctype="multipart/form-data">
                           <div>
-                            <img src="" alt="" style="margin: 0px 25px 0px 220px; border-radius: 5px;" height="90px" width="120px">
+                            <img src="profile_image/<?php echo $fetch_image['profile']?>" alt="profile" style="margin: 0px 25px 0px 220px; border-radius: 5px;" height="90px" width="120px">
                           </div><br>
                           <div class="form-group">
                             <label for="username" class="font-weight-bold">Choose Profile</label>
@@ -508,7 +499,7 @@ if(isset($_POST['update']))
                           </div>
                           <div class="d-flex justify-content-between mt-4">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <button type="submit" name="profile" value="save" class="btn btn-primary">Update Profile</button>
+                            <button type="submit" name="submit" value="save" class="btn btn-primary">Update Profile</button>
                           </div>
                         </form>
                       </div>
