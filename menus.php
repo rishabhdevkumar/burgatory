@@ -201,8 +201,8 @@
     }
   </style>
   <!--select button section-->
-  <div class="container sel_but">
-    <div class="row sel_but_row">
+ <div class="container">
+    <div class="row sel_but_row" style="margin-top: -110px;">
       <div class="col-md-12 col-sm-12 col-xs-12 sel_but_col">
         <?php
           $get_catagory = "SELECT * FROM `categories` WHERE status = 'y'";
@@ -212,8 +212,8 @@
         ?>
        <button 
           class="menu-btn <?php if($fetch_catagory['id']=='1'){echo 'color_act';}?>" 
-          style="padding-top: 12px" id="category" name="category"
-          onclick="change_category_color_by_id('<?php echo $fetch_catagory['id']; ?>')">
+           id="category" name="category"
+          onclick="change_category_color_by_id('<?php echo $fetch_catagory['id'];?>')">
           <?php echo $fetch_catagory['name']; ?>
         </button>
         <?php

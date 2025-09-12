@@ -12,10 +12,6 @@
 
 if(isset($_POST['insert']))
 {
-	/*echo'<pre>';
-	print_r($_POST);
-	exit();*/
-	
 	$page_id=$_POST['page'];
 	$catogory_id=$_POST['category'];
 	/*$sub_category_id=$_POST['sub_category'];*/
@@ -25,7 +21,7 @@ if(isset($_POST['insert']))
 	$add_home=$_POST['add_home'];
 	$menu_title=$_POST['menu_name'];
 	$menu_description=$_POST['desp'];
-	$image   		= ($_FILES['img']['name']);
+	$image = ($_FILES['img']['name']);
 	  
 		$type=explode('/',$_FILES['img']['type']);
 		$types = array('jpeg','jpg','png','gif');
@@ -35,8 +31,10 @@ if(isset($_POST['insert']))
 		  $extension= pathinfo($filename,PATHINFO_EXTENSION);
 		  $new= md5($filename).'_'.rand(0000,999).'.'.$extension;
 		  $IMAGE= $new;
+		  $path='menu_img/'.$fetch['image'].'';
 		  $update_menu = "UPDATE `menu` SET page_id='".$page_id."',category_id='".$catogory_id."',menu_title='".$menu_title."',menu_description='".$menu_description."',menu_image='".$IMAGE."',menu_price='".$menu_price."',menu_no='".$menu_no."',status='".$status."',add_home='".$add_home."' WHERE id='".$menu_id."'";
 		  $run_update = mysqli_query($connect,$update_menu);
+		  unlink($path);
 		   move_uploaded_file(($_FILES['img']['tmp_name']),'menu_img/'.$IMAGE);
 		   if($run_update)
 		{
