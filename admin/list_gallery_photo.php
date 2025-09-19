@@ -1,7 +1,7 @@
 <?php
 	include("config.php");
 	$check_page = "SELECT * FROM `gallery_photo` WHERE 1";
-	$run_check=mysqli_query($connect,$check_page);
+	$run_check = mysqli_query($connect,$check_page);
 	
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -75,8 +75,7 @@
 													 { 
                                                 ?>
 												<a href="javascript:void(0)" style="color:green;"
-													Title="Click here to deactivate"><img src="images/act.png"
-													width="24" height="24" border="0" alt=""
+													Title="Click here to deactivate"><img src="images/act.png" alt=""
 													onclick="change_status('<?php echo $fetch_page['id'] ?>', 'yes' )">
 												</a>
 												<?php 
@@ -86,7 +85,7 @@
 												?>
 												<a href="javascript:void(0)" style="color:red;"
 													Title="Click here to activate"><img src="images/deact.png"
-													width="24" height="24" border="0" alt=""
+													width="20" height="20" border="0" alt=""
 													onclick="change_status('<?php echo $fetch_page['id'] ?>', 'no' )">
 												</a>
 												<?php
@@ -95,7 +94,7 @@
 											</div>
 										</td>
 										<td style=" vertical-align: top;">
-											<a href="edit_gallery.php?eid=<?=$fetch_page['id']?>" title="Edit"><img
+											<a href="edit_gallery.php?eid=<?php=$fetch_page['id']?>" title="Edit"><img
 													src="images/pencil.png" alt="Edit" /></a>&nbsp;
 											<a href="delete.php?gall_id=<?php echo $fetch_page['id']?>"
 												onclick="return confirm('Are you sure you want to delete this page?')"

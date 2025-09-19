@@ -38,7 +38,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-	<title>Add Gallery Photo || REDCHILLIES</title>
+	<title>Add Gallery Photo</title>
 
 	<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
 	<script type="text/javascript" src="js/jquery.notifyBar.js"></script>

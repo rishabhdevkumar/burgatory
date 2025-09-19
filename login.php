@@ -1,7 +1,12 @@
 <?php
-  include("config.php");
-  if(isset($_POST['save']))
-  {
+include("config.php");
+$user_id = $_SESSION['user_id'];
+$change_profile = "SELECT * FROM `user` WHERE id='".$user_id."'";
+$run_profile = mysqli_query($connect,$change_profile);
+$fetch_profile = mysqli_fetch_array($run_profile);
+
+if(isset($_POST['save']))
+{
     $Name = $_POST['name'];
     $Email = $_POST['email'];
     $Phone = $_POST['phone'];
@@ -14,27 +19,34 @@
     $City = $_POST['city'];
     $code = $_POST['Zipcode'];
 
+    if(!empty($_FILES['img']['name'])){
+        $profile = $_FILES['img']['name'];
+        $tmp_name = $_FILES['img']['tmp_name'];
+        move_uploaded_file($tmp_name, 'profile_image/'.$profile);
+    } else {
+        $profile = "my_profile.png";  
+        copy("image/my_profile.png", "profile_image/".$profile);
+    }
+
     $conf_email = "SELECT * FROM  user WHERE email = '".$Email."'";
     $run_email  =  mysqli_query($connect, $conf_email);
     $num_rows   =  mysqli_num_rows($run_email);
-    if($num_rows)
-    {
-      echo '<script>alert("This Email Already Exists")</script>';
-    }else
-    {
-     $add = "INSERT INTO user(name,email,phone_no,password,address,dob,gender,state,city,zip_code)
-      VALUES('".$Name."','".$Email."','".$Phone."','".$Password."','".$Address."','".$Dob."','".$Gender."',
-      '".$State."','".$City."','".$code."')";
-      $run = mysqli_query($connect ,$add);
-      if($run)
-      {
-        echo '<script>alert("Added Successfully")</script>';
-      }else
-      {
-        echo '<script>alert("Something Went Wrong")</script>';
-      }
+
+    if($num_rows){
+        echo '<script>alert("This Email Already Exists")</script>';
+    } else {
+        $add = "INSERT INTO user(name,email,phone_no,password,address,dob,gender,state,city,zip_code,profile)
+        VALUES('".$Name."','".$Email."','".$Phone."','".$Password."','".$Address."','".$Dob."','".$Gender."','".$State."','".$City."','".$code."','".$profile."')";
+        
+        $run = mysqli_query($connect ,$add);
+        if($run){
+            echo '<script>alert("Added Successfully")</script>';
+        } else {
+            echo '<script>alert("Something Went Wrong")</script>';
+        }
     }
-  }
+ }
+
 // ------------- php code of authentication ----------------
   if(isset($_POST['save1']))
   {
@@ -489,7 +501,8 @@
               <h4 class="text_c1 regis_font">Register</h4>
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12">
-              <form data-toggle="validator" role="form" id="myform" method="POST" action="">
+              <form data-toggle="validator" role="form" id="myform" method="POST" action=""
+                enctype="multipart/form-data">
                 <div class="form-group log_padding">
                   <label for="name" class="">Name</label>
                   <div class="valid">

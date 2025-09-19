@@ -282,7 +282,7 @@ if(isset($_POST['update']))
 </head>
 
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
-  <!-- <nav class="navbar navbar-default navbar-fixed-top ggg">
+  <nav class="navbar navbar-default navbar-fixed-top ggg">
     <div class="container-fluid jjj">
       <div class="navbar-header ddd">
         <button type="button" class="navbar-toggle nnn" data-toggle="collapse" data-target="#myNavbar">
@@ -412,7 +412,7 @@ if(isset($_POST['update']))
         <h3 class="abt_width">MY ACCOUNT</h3>
       </div>
     </div>
-  </div> -->
+  </div>
   <div class="container">
     <div class="row">
       <div class="col-md-11 col-sm-12 col-xs-12">
@@ -420,7 +420,7 @@ if(isset($_POST['update']))
           <div class="col-md-12 col-sm-12 col-xs-12 border_st">
             <div class="col-md-12 col-sm-12 col-xs-12 ">
               <div class="col-md-4 col-sm-4 col-xs-4 text-start">
-                <img src="profile_image/<?php echo $fetch_image['profile']?>" class="rounded-circle" alt="Profile" width="50" height="50">
+                <img src="profile_image/<?php echo $fetch_image['profile']?>" class="rounded-circle" alt="Profile" width="70" height="70">
               </div>
               <div class="col-md-4 col-sm-4 col-xs-4 myacc_mar1">
                 <h4 class="text_c1 regis_font text-center">MY ACCOUNT</h4>
@@ -429,7 +429,7 @@ if(isset($_POST['update']))
                 <ul class="nav navbar-nav navbar-right">
                   <li class="dropdown">
                     <a href="#" class="dropdown-toggle user_mar_font toggle_radius cart_ic_font acc_col"
-                      data-toggle="dropdown">
+                      data-toggle="dropdown" style="margin-right: -2px">
                       <span class="mail">
                         <?php echo $fetch['name'];?>
                       </span>
@@ -491,7 +491,8 @@ if(isset($_POST['update']))
                       <div class="modal-body">
                         <form id="updateProfileForm" method="POST" action="" enctype="multipart/form-data">
                           <div>
-                            <img src="profile_image/<?php echo $fetch_image['profile']?>" alt="profile" style="margin: 0px 25px 0px 220px; border-radius: 5px;" height="90px" width="120px">
+                            <img src="profile_image/<?php echo $fetch_image['profile']?>" alt="profile" 
+                            style="margin: 0px 25px 0px 220px;" height="80px" width="85px">
                           </div><br>
                           <div class="form-group">
                             <label for="username" class="font-weight-bold">Choose Profile</label>

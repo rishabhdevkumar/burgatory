@@ -67,6 +67,12 @@
 				<?php require 'sidebar.php'; ?>
 			</div>
 		</div>
+		<div id="main-header">
+			<div class="profile">
+				<img src="" alt="" class="profile-img">
+				<span class="profile-name">John Doe</span>
+			</div>
+		</div>
 		<div id="main-content">
 			<div class="content-box" style="box-shadow: 0px 0 12px 5px rgba(128, 122, 122, 0.29);width: 100%;">
 				<div class="content-box-header">
@@ -122,7 +128,8 @@
 									<input class="text-input medium-input validate[equals[password]]" type="password"
 										id="confirm" name="confirm" />
 								</p>
-									<button class="button" type="submit" value="Update" id="update" name="update">Update</button>
+								<button class="button" type="submit" value="Update" id="update"
+									name="update">Update</button>
 							</fieldset>
 							<div class="clear"></div>
 						</form>
@@ -155,84 +162,123 @@
 	}
 ?>
 <style>
-body {
-  overflow: hidden;    
-}
+	.content-box {
+		background: #fff;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+		padding: 10px;
+		margin-top: 4%;
+		color: #fff;
+		height: auto;
+		min-height: 600px;
+		overflow: hidden;
+	}
 
-.content-box {
-  background: #fff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-  padding: 10px;
-  color: #fff;
-  height: auto;       
-  min-height: 600px;  
-  overflow: hidden;   
-}
+	.content-box-header {
+		background: #ddd9d975;
+		padding: 5px;
+		border-radius: 8px 8px 0 0;
+		border: none;
+	}
 
-.content-box-header {
-  background: #ddd9d975;          
-  padding: 5px;
-  border-radius: 8px 8px 0 0; 
-  border: none;               
-}
+	.content-box-header h3 {
+		margin: 0;
+		font-size: 20px;
+		color: #000;
+		font-weight: bold;
+	}
 
-.content-box-header h3 {
-  margin: 0;
-  font-size: 20px;
-  color: #000;
-  font-weight: bold;
-}
+	form label {
+		font-weight: 500;
+		display: block;
+		color: #181818ff;
+	}
 
-form label {
-  font-weight: 500;
-  display: block;
-  color: #181818ff;
-}
+	form input[type="text"],
+	form input[type="password"],
+	form textarea {
+		width: 100%;
+		border: 1px solid #5e5e5ed8;
+		border-radius: 5px;
+		font-size: 14px;
+		color: #2b2b2bff;
+	}
 
-form input[type="text"],
-form input[type="password"],
-form textarea {
-  width: 100%;
-  border: 1px solid #5e5e5ed8;
-  border-radius: 5px;
-  font-size: 14px;
-  color: #2b2b2bff;
-}
+	form textarea {
+		min-height: 50px;
+		resize: none;
+	}
 
-form textarea {
-  min-height: 50px;
-  resize: none;
-}
+	.button {
+		background: #000;
+		border: none;
+		padding: 5px;
+		border-radius: 5px;
+		color: #fff;
+		cursor: pointer;
+		transition: background 0.3s ease;
+	}
 
-.button {
-  background: #000;
-  border: none;
-  padding: 5px;
-  border-radius: 5px;
-  color: #fff;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
+	.button:hover {
+		background: #069e39;
+		text-decoration: none;
+	}
 
-.button:hover {
-  background: #069e39;
-  text-decoration: none;
-}
+	@media (max-width: 768px) {
+		#main-content {
+			padding: 10px;
+			align-items: flex-start;
+		}
 
-@media (max-width: 768px) {
-  #main-content {
-    padding: 10px;
-    align-items: flex-start; 
-  }
+		.content-box {
+			max-width: 100%;
+			padding: 15px;
+		}
 
-  .content-box {
-    max-width: 100%;
-    padding: 15px;
-  }
+		.content-box-header h3 {
+			font-size: 18px;
+		}
+	}
 
-  .content-box-header h3 {
-    font-size: 18px;
-  }
-}
+	#main-header {
+		background-color: #0c1741ff;
+		padding: 8px 10px;
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		color: #fff;
 
+		position: fixed;
+		top: 0;
+		left: 230px;
+		width: calc(100% - 200px);
+		z-index: 1000;
+	}
+
+	.profile {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		margin-right: 7%;
+	}
+
+	.profile-img {
+		width: 35px;
+		height: 35px;
+		border-radius: 50%;
+		border: 2px solid #fff;
+	}
+
+	.profile-name {
+		font-size: 16px;
+		font-weight: 500;
+		margin-left: 10px;
+	}
+	#sidebar {
+  		width: 230px;
+  		position: fixed;
+  		top: 0;
+  		left: 0;
+  		bottom: 0;
+  		z-index: 999;
+	}
 </style>

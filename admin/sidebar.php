@@ -94,10 +94,9 @@
 	</ul>
 
 <style>
-	/* Sidebar */
 #sidebar {
   width: 230px;
-  background: #0d0d0eff;
+  background: #060e30ff;
   color: #fff;
   min-height: 100vh;
   display: flex;
@@ -107,7 +106,7 @@
   top: 0;
   left: 0;
   padding-top: 5px;
-  z-index: 1000; /* sidebar always on top */
+  z-index: 1000; 
 }
 
 .sidebar-header {
@@ -137,7 +136,7 @@
 }
 
 #main-nav li {
-  background: #0d0d0eff;
+  background: transparent;
 }
 
 #main-nav li a {
@@ -150,7 +149,7 @@
 
 #main-nav li a:hover {
   margin-left: 13px;
-  background: #27293d;
+  background: #09102be8;
   color: #fff;
   border-radius: 5px 0 0 5px;
 }
@@ -158,7 +157,7 @@
 #main-nav li a.current {
   margin-left: 10px;
   border-radius: 5px 0 0 5px;
-  background: #f8f8f8ff;
+  background: #09102be8;
   color: #000;
 }
 
@@ -181,7 +180,7 @@
 }
 
 #main-nav ul li a:hover {
-  background: #32344d;
+  /* background: #32344d; */
   color: #fff;
 }
 
@@ -190,9 +189,8 @@
   color: #fff;
 }
 
-/* Main Content Fix */
 #main-content {
-  margin-left: 230px;   /* sidebar ki width ke barabar */
+  margin-left: 230px;  
   padding: 30px;
   background: #f5f5f5;
   min-height: 100vh;
@@ -202,7 +200,6 @@
   align-items: flex-start;
 }
 
-/* Responsive */
 @media (max-width: 992px) {
   #sidebar {
     width: 200px;
