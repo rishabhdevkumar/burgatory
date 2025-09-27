@@ -226,11 +226,10 @@
               </h6>
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12 www">
-    <a href="menus.php?category_id=<?php echo base64_encode($id)?>">
-        <button type="button" class="btn btn-danger btn-md dfa">VIEW MORE</button>
-    </a>
-</div>
-
+              <a href="menus.php?category_id=<?php echo base64_encode($id)?>">
+                <button type="button" class="btn btn-danger btn-md dfa">VIEW MORE</button>
+              </a>
+            </div>
           </div>
         </div>
         <?php
@@ -581,7 +580,7 @@
           <div class="col-md-12 col-sm-12 col-xs-12 text-center pad11 mar-ico">
             <p><a class="dhhkd1 let_spce" href="index.php"><i class="fa fa-chevron-circle-right icon-padd1"
                   aria-hidden="true"></i>&nbsp HOME</a></p>
-            <p><a class="dhhkd1 let_spce" href="about.html">
+            <p><a class="dhhkd1 let_spce" href="about.php">
                 <i class="fa fa-chevron-circle-right icon-padd1" aria-hidden="true"></i>&nbsp ABOUT</a></p>
             <p><a class="dhhkd1 let_spce" href="menus.php"><i class="fa fa-chevron-circle-right icon-padd1"
                   aria-hidden="true"></i>&nbsp MENU</a></p>

@@ -163,6 +163,7 @@
           <thead>
             <tr>
               <th class="my_order_back">Order Number</th>
+              <th class="my_order_back">Order Date</th>
               <th class="my_order_back">Total Price</th>
               <th class="my_order_back">Payment Type</th>
               <th class="my_order_back">Order At</th>
@@ -172,6 +173,7 @@
           <tbody>
             <tr>
               <td class="my_order_back1">11211</td>
+              <td class="my_order_back1">05-04-2007</td>
               <td class="my_order_back1">$1211</td>
               <td class="my_order_back1">debit card</td>
               <td class="my_order_back1">dqwdwq</td>
@@ -179,6 +181,7 @@
             </tr>
             <tr>
               <td class="my_order_back1">11211</td>
+              <td class="my_order_back1">05-04-2007</td>
               <td class="my_order_back1">$1211</td>
               <td class="my_order_back1">debit card</td>
               <td class="my_order_back1">dqwdwq</td>
@@ -186,6 +189,7 @@
             </tr>
             <tr>
               <td class="my_order_back1">11211</td>
+              <td class="my_order_back1">05-04-2007</td>
               <td class="my_order_back1">$1211</td>
               <td class="my_order_back1">debit card</td>
               <td class="my_order_back1">dqwdwq</td>
@@ -193,6 +197,7 @@
             </tr>
             <tr>
               <td class="my_order_back1">11211</td>
+              <td class="my_order_back1">05-04-2007</td>
               <td class="my_order_back1">$1211</td>
               <td class="my_order_back1">debit card</td>
               <td class="my_order_back1">dqwdwq</td>
@@ -200,6 +205,7 @@
             </tr>
             <tr>
               <td class="my_order_back1">11211</td>
+              <td class="my_order_back1">05-04-2007</td>
               <td class="my_order_back1">$1211</td>
               <td class="my_order_back1">debit card</td>
               <td class="my_order_back1">dqwdwq</td>
@@ -207,6 +213,7 @@
             </tr>
             <tr>
               <td class="my_order_back1">11211</td>
+              <td class="my_order_back1">05-04-2007</td>
               <td class="my_order_back1">$1211</td>
               <td class="my_order_back1">debit card</td>
               <td class="my_order_back1">dqwdwq</td>
@@ -214,6 +221,7 @@
             </tr>
             <tr>
               <td class="my_order_back1">11211</td>
+              <td class="my_order_back1">05-04-2007</td>
               <td class="my_order_back1">$1211</td>
               <td class="my_order_back1">debit card</td>
               <td class="my_order_back1">dqwdwq</td>
@@ -221,6 +229,7 @@
             </tr>
             <tr>
               <td class="my_order_back1">11211</td>
+              <td class="my_order_back1">05-04-2007</td>
               <td class="my_order_back1">$1211</td>
               <td class="my_order_back1">debit card</td>
               <td class="my_order_back1">dqwdwq</td>
@@ -228,6 +237,7 @@
             </tr>
             <tr>
               <td class="my_order_back1">11211</td>
+              <td class="my_order_back1">05-04-2007</td>
               <td class="my_order_back1">$1211</td>
               <td class="my_order_back1">debit card</td>
               <td class="my_order_back1">dqwdwq</td>
@@ -235,6 +245,7 @@
             </tr>
             <tr>
               <td class="my_order_back1">11211</td>
+              <td class="my_order_back1">05-04-2007</td>
               <td class="my_order_back1">$1211</td>
               <td class="my_order_back1">debit card</td>
               <td class="my_order_back1">dqwdwq</td>
@@ -242,6 +253,7 @@
             </tr>
             <tr>
               <td class="my_order_back1">11211</td>
+              <td class="my_order_back1">05-04-2007</td>
               <td class="my_order_back1">$1211</td>
               <td class="my_order_back1">debit card</td>
               <td class="my_order_back1">dqwdwq</td>
@@ -249,6 +261,7 @@
             </tr>
             <tr>
               <td class="my_order_back1">11211</td>
+              <td class="my_order_back1">05-04-2007</td>
               <td class="my_order_back1">$1211</td>
               <td class="my_order_back1">debit card</td>
               <td class="my_order_back1">dqwdwq</td>
@@ -256,6 +269,7 @@
             </tr>
             <tr>
               <td class="my_order_back1">11211</td>
+              <td class="my_order_back1">05-04-2007</td>
               <td class="my_order_back1">$1211</td>
               <td class="my_order_back1">debit card</td>
               <td class="my_order_back1">dqwdwq</td>
@@ -263,6 +277,7 @@
             </tr>
             <tr>
               <td class="my_order_back1">11211</td>
+              <td class="my_order_back1">05-04-2007</td>
               <td class="my_order_back1">$1211</td>
               <td class="my_order_back1">debit card</td>
               <td class="my_order_back1">dqwdwq</td>
@@ -352,36 +367,6 @@
     </a><br><br>
     <p>© Copyright 2018 - All Rights Reserved</p>
   </footer>
-  <!--<script>
-      $(document).ready(function(){
-      // Initialize Tooltip
-      $('[data-toggle="tooltip"]').tooltip(); 
-
-      // Add smooth scrolling to all links in navbar + footer link
-      $(".navbar a, footer a[href='#myPage']").on('click', function(event) {
-
-      // Make sure this.hash has a value before overriding default behavior
-      if (this.hash !== "") {
-
-      // Prevent default anchor click behavior
-      event.preventDefault();
-
-      // Store hash
-      var hash = this.hash;
-
-      // Using jQuery's animate() method to add smooth page scroll
-      // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
-      $('html, body').animate({
-      scrollTop: $(hash).offset().top
-      }, 900, function(){
-
-      // Add hash (#) to URL when done scrolling (default click behavior)
-      window.location.hash = hash;
-      });
-      } // End if
-      });
-      })
-</script>-->
 
 </body>
 

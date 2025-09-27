@@ -187,7 +187,9 @@ if(isset($_POST['save']))
           },
           phone: {
             required: true,
-            minlength: 10
+            minlength: 10,
+            maxlength: 10,
+            digits: true
           },
           password: {
             required: true,
@@ -435,7 +437,7 @@ if(isset($_POST['save']))
             <form data-toggle="validator" role="form" id="myform1" method="POST" action="">
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="form-group log_padding">
-                  <label for="name" class="">Email-id</label>
+                  <label for="name" class="">Email Id</label>
                   <div class="valid">
                     <input type="text" class="form-control input_height4" placeholder="Enter Email" id="email1"
                       name="email">
@@ -522,9 +524,10 @@ if(isset($_POST['save']))
                   <div class="valid">
                     <input type="text" class="form-control input_height4" placeholder="Enter Phone no" id="phone"
                       name="phone">
+                    <button class="btn send-otp" data-toggle="modal" data-target="#otpModal">SEND OTP</button>
                   </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group pass-top">
                   <label for="password" class="">Password</label>
                   <div class="valid">
                     <input type="password" class="form-control input_height4" placeholder="Enter Password" id="password"
@@ -598,6 +601,7 @@ if(isset($_POST['save']))
                   </div>
                 </div>
                 <div class="col-md-12 col-sm-12 col-xs-12 text-center log_mkh">
+                  <button type="reset" value="reset" class="btn label-danger btn_padding">RESET</button>
                   <button type="Submit" value="Submit" class="btn label-danger btn_padding" id="save"
                     name="save">REGISTER</button>
                 </div>
@@ -605,7 +609,36 @@ if(isset($_POST['save']))
             </div>
           </div>
         </div>
-        <!--end register section-->
+        <!-- ---------- send otp model ----------- -->
+        <div class="modal fade" id="otpModal" tabindex="-1" aria-labelledby="otpModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content p-3">
+              <!------ Modal Header ------>
+              <div class="modal-header d-flex justify-content-between align-items-center">
+                <button type="button" class="close text-white mr-2" data-dismiss="modal" aria-label="Close"
+                  style="opacity:1;">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title" id="otpModalLabel">SEND OTP</h5>
+              </div>
+              <!------ Modal Body ------>
+              <div class="modal-body text-center">
+                <div class="d-flex justify-content-center gap-2 mb-3">
+                  <input type="text" maxlength="1" class="otp-input" />
+                  <input type="text" maxlength="1" class="otp-input" />
+                  <input type="text" maxlength="1" class="otp-input" />
+                  <input type="text" maxlength="1" class="otp-input" />
+                  <input type="text" maxlength="1" class="otp-input" />
+                  <input type="text" maxlength="1" class="otp-input" />
+                </div><br>
+              </div>
+              <div class="d-flex justify-content-center gap-3 modal-footer">
+                <button class="btn-success">Submit</button>
+                <button type="reset" class="btn-secondary">Reset</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -681,44 +714,74 @@ if(isset($_POST['save']))
     </div>
   </div>
   <!--end important link section-->
-  <!-- Footer -->
   <footer class="text-center footr">
     <a class="up-arrow" href="#myPage" data-toggle="tooltip" title="TO TOP">
       <span class="glyphicon glyphicon-chevron-up rrr"></span>
     </a><br><br>
     <p>© Copyright 2018 - All Rights Reserved</p>
   </footer>
-  <!--<script>
-      $(document).ready(function(){
-      // Initialize Tooltip
-      $('[data-toggle="tooltip"]').tooltip(); 
-
-      // Add smooth scrolling to all links in navbar + footer link
-      $(".navbar a, footer a[href='#myPage']").on('click', function(event) {
-
-      // Make sure this.hash has a value before overriding default behavior
-      if (this.hash !== "") {
-
-      // Prevent default anchor click behavior
-      event.preventDefault();
-
-      // Store hash
-      var hash = this.hash;
-
-      // Using jQuery's animate() method to add smooth page scroll
-      // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
-      $('html, body').animate({
-      scrollTop: $(hash).offset().top
-      }, 900, function(){
-
-      // Add hash (#) to URL when done scrolling (default click behavior)
-      window.location.hash = hash;
-      });
-      } // End if
-      });
-      })
-</script>-->
 
 </body>
 
 </html>
+
+<style>
+  .modal-header {
+    background: #7c88f3ff;
+  }
+
+  .modal-title {
+    color: #d3d3d3ff;
+    font-size: 20px;
+  }
+
+  .otp-input {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    text-align: center;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+  }
+
+  .otp-input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, .5);
+  }
+
+  .modal-footer {
+    padding: 8px;
+    background: #7c88f3ff;
+  }
+
+  .btn-success {
+    color: #fff;
+    width: 60px;
+    padding: 4px;
+    border: none;
+    border-radius: 4px;
+    background: #343435ff;
+  }
+
+  .btn-success:hover {
+    background: #338d79ff;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  .btn-secondary {
+    color: #fff;
+    width: 60px;
+    padding: 4px;
+    border: none;
+    border-radius: 4px;
+    background: #2f8ca3ff;
+  }
+
+  .btn-secondary:hover {
+    background: #5438a1ff;
+    color: #fff;
+    cursor: pointer;
+  }
+</style>

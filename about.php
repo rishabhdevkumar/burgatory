@@ -159,27 +159,6 @@
       <div class="col-md-12 col-sm-12 col-xs-12">
         <h4 class="text_c">ABOUT US</h4>
         <P><?php echo $fetch['content'];?>
-          <!-- Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque blandit quam vel scelerisque aliquam.
-          Vestibulum feugiat mattis ipsum. Quisque faucibus nisi sit amet nisi malesuada feugiat. Nullam sagittis ante
-          eget dolor facilisis tempus. Vestibulum sollicitudin maximus tempus. Cras eleifend, ligula sed finibus
-          interdum, diam mi suscipit quam, euismod convallis ipsum nibh et lectus. Cras faucibus mauris lacus, eu dictum
-          lacus fringilla id. Duis nisl velit, mollis tincidunt risus non, venenatis vehicula enim. Ut consequat varius
-          sapien eget elementum. Donec commodo sagittis dolor, sed convallis erat ultricies vestibulum. Proin porta at
-          purus ut sollicitudin.
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque blandit quam vel scelerisque aliquam.
-          Vestibulum feugiat mattis ipsum. Quisque faucibus nisi sit amet nisi malesuada feugiat. Nullam sagittis ante
-          eget dolor facilisis tempus. Vestibulum sollicitudin maximus tempus. Cras eleifend, ligula sed finibus
-          interdum, diam mi suscipit quam, euismod convallis ipsum nibh et lectus. Cras faucibus mauris lacus, eu dictum
-          lacus fringilla id. Duis nisl velit, mollis tincidunt risus non, venenatis vehicula enim. Ut consequat varius
-          sapien eget elementum. Donec commodo sagittis dolor, sed convallis erat ultricies vestibulum. Proin porta at
-          purus ut sollicitudin.
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque blandit quam vel scelerisque aliquam.
-          Vestibulum feugiat mattis ipsum. Quisque faucibus nisi sit amet nisi malesuada feugiat. Nullam sagittis ante
-          eget dolor facilisis tempus. Vestibulum sollicitudin maximus tempus. Cras eleifend, ligula sed finibus
-          interdum, diam mi suscipit quam, euismod convallis ipsum nibh et lectus. Cras faucibus mauris lacus, eu dictum
-          lacus fringilla id. Duis nisl velit, mollis tincidunt risus non, venenatis vehicula enim. Ut consequat varius
-          sapien eget elementum. Donec commodo sagittis dolor, sed convallis erat ultricies vestibulum. Proin porta at
-          purus ut sollicitudin. -->
         </P>
         <div class="col-md-12 col-sm-12 col-xs-12 abt_img_height text-center">
           <img src="admin/upload/<?php echo $fetch['image'];?>" alt="Image">
@@ -187,7 +166,6 @@
       </div>
     </div>
   </div>
-
   <!--start important link section-->
   <div class="container-fluid">
     <div class="row">

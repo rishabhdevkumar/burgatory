@@ -53,38 +53,6 @@
 		}
 		}
 	}
-
-  // ------------- update profile ------------
-//   if(isset($_POST['submit'])) {
-//     $new_image = $_FILES['image']['name'];
-//     $tmp_name = $_FILES['image']['tmp_name'];
-//     $image_path = 'profile_image/'.$new_image;
-
-//     // Validate file type
-//     /*$allowed_types = array('jpg', 'png', 'jpeg');
-//     $file_type = strtolower(pathinfo($new_image, PATHINFO_EXTENSION));
-//     if(!in_array($file_type, $allowed_types)) {
-//         echo '<script>alert("Invalid file type")</script>';
-//         exit;
-//     }*/
-
-//     // Update query using prepared statement
-//    echo $update_image = "UPDATE user SET profile ='".$new_image."' WHERE id = '".$id."'";
-//     $stmt = mysqli_query($connect,$update_image);
-//     /*mysqli_stmt_bind_param($stmt, "si", $new_image, $id);*/
-//    /* $run_update = mysqli_stmt_execute($stmt);*/
-
-//     if($stmt) {
-//         if(move_uploaded_file($tmp_name, $image_path)) {
-//             echo '<script>alert("Profile updated")</script>';
-//             // header("location:dashboard.php");
-//         } else {
-//             echo '<script>alert("Failed to upload image")</script>';
-//         }
-//     } else {
-//         echo '<script>alert("Profile does not update")</script>';
-//     }
-// }
   $profile =  "SELECT * FROM user WHERE id = '".$id."'";
   $run = mysqli_query($connect,$profile);
   $fetch_image = mysqli_fetch_array($run);
@@ -244,21 +212,13 @@ if(isset($_POST['update']))
         },
         highlight: function (element, errorClass, validClass) {
           $(element).parents(".valid").addClass("has-error").removeClass("has-success");
-          /*$( element ).next( "span" ).addClass( "glyphicon-remove" ).removeClass( "glyphicon-ok" );*/
         },
         unhighlight: function (element, errorClass, validClass) {
           $(element).parents(".valid").addClass("has-success").removeClass("has-error");
-          /*$( element ).next( "span" ).addClass( "glyphicon-ok" ).removeClass( "glyphicon-remove" );*/
         }
       });
 
     });
-    // document.addEventListener("DOMContentLoaded", function () {
-    //   document.getElementById('editProfilebutton').addEventListener('click', function (e) {
-    //     e.preventDefault();
-    //     console.log("Edit Profile button clicked");
-    //   });
-    // });
 
     document.addEventListener("DOMContentLoaded", function () {
       document.getElementById('editPasswordbutton').addEventListener('click', function (e) {
@@ -434,7 +394,7 @@ if(isset($_POST['update']))
           <div class="col-md-12 col-sm-12 col-xs-12 border_st">
             <div class="col-md-12 col-sm-12 col-xs-12 ">
               <div class="col-md-4 col-sm-4 col-xs-4 text-start">
-                <img src="profile_image/<?php echo $fetch_image['profile']?>" class="rounded-circle" alt="Profile" width="70" height="70">
+                <img src="profile_image/<?php echo $fetch_image['profile']?>" class="rounded-circle" alt="Profile" width="60" height="60">
               </div>
               <div class="col-md-4 col-sm-4 col-xs-4 myacc_mar1">
                 <h4 class="text_c1 regis_font text-center">MY ACCOUNT</h4>
