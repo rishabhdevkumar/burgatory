@@ -1,5 +1,8 @@
 <?php
   include("config.php");
+  $category_id = base64_decode($_GET['category_id']);
+  $get_menus = "SELECT * FROM menu WHERE status='y' AND category_id='".$category_id."'";
+  $run_menus = mysqli_query($connect, $get_menus);
 ?>
 
 <!DOCTYPE html>

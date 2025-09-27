@@ -1,6 +1,6 @@
 <?php
   include("config.php");
-  
+  $id = $_SESSION['category_id'];
 ?>
 
 <!DOCTYPE html>
@@ -123,7 +123,8 @@
                 $fetch = mysqli_fetch_array($run);
               ?>
               <p style="margin: 0px 0px 5px 0px; color: purple">
-                Welcome <?php echo $fetch['name']; ?>
+                Welcome
+                <?php echo $fetch['name']; ?>
               </p>
               <li><a href="my_account.php" class="drop_back">My Account</a></li>
               <li><a href="my_order.php" class="drop_back">My Order</a></li>
@@ -200,27 +201,41 @@
       <span class="sr-only">Next</span>
     </a>
   </div>
-  <!--end of slider-->
   <div class="container">
     <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12">
+        <?php
+          $get_menus = "SELECT * FROM `menu` WHERE status = 'y' LIMIT 1";
+          $run_menus = mysqli_query($connect, $get_menus);
+          if($menu = mysqli_fetch_array($run_menus)) { 
+        ?>
         <div class="col-md-4 col-sm-12 col-xs-12">
           <div class="col-md-12 col-sm-12 col-xs-12 border_st pad_rem">
             <div class="col-12 col-sm-12 col-xs-12 fix_height pad_rem opb1">
-              <img src="image/FILE-20180212-1531K661EG5KWSFC.jpeg" class="img-thumbnail jsd pad_remv"
-                alt="Cinque Terre">
+              <img src="admin/menu_img/<?php echo $menu['menu_image']; ?>" class="img-thumbnail jsd pad_remv"
+                alt="<?php echo $menu['name']; ?>">
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12 opo">
-              <p class="pob">TAKE HOME THE PLEASURE</p>
+              <p class="pob">
+                <?php echo $menu['menu_title']; ?>
+              </p>
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12 cbc">
-              <h6>Come and enjoy the good test and hospitality in burgatory</h6>
+              <h6>
+                <?php echo $menu['menu_description']; ?>
+              </h6>
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12 www">
-              <a href="menus.html"> <button type="button" class="btn btn-danger btn-md dfa">VIEW MORE</button></a>
-            </div>
+    <a href="menus.php?category_id=<?php echo base64_encode($id)?>">
+        <button type="button" class="btn btn-danger btn-md dfa">VIEW MORE</button>
+    </a>
+</div>
+
           </div>
         </div>
+        <?php
+          }
+        ?>
         <div class="col-md-4 col-sm-12 col-xs-12">
           <div class="col-md-12 col-sm-12 col-xs-12 border_st pad_rem">
             <div class="col-md-12 col-sm-12 col-xs-12 fan fix_height pad_rem opb1">

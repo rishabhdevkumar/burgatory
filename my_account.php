@@ -19,6 +19,7 @@
   // ---------- update user data ------------
 
   $id = $_SESSION['user_id'];
+
   if(isset($_POST['save']))
 	{
 		$Name = $_POST['name'];
@@ -54,26 +55,39 @@
 	}
 
   // ------------- update profile ------------
-  $id = $_SESSION['user_id'];
-	$change_image = "SELECT * FROM user WHERE id = '".$id."'";
-	$run = mysqli_query($connect,$change_image);
-	$fetch_image = mysqli_fetch_array($run);
-	if(isset($_POST['submit']))
-	{
-		$new_image = ($_FILES['userprofile']['name']);
-		$update_image = "UPDATE user Set profile = '".$new_image."' WHERE id = '".$id."'";
-		echo $run_update = mysqli_query($connect,$update_image);
-		if($run_update)
-		{
-			// header("location:dashboard.php");
-			move_uploaded_file(($_FILES['userprofile']['tmp_name']),'profile_image/'.$new_image);
-			echo '<script>alert("profile update")</script>';
-		}else
-		{
-			echo '<script>alert("Profile does not update")</script>';
-		}
+//   if(isset($_POST['submit'])) {
+//     $new_image = $_FILES['image']['name'];
+//     $tmp_name = $_FILES['image']['tmp_name'];
+//     $image_path = 'profile_image/'.$new_image;
 
-	}
+//     // Validate file type
+//     /*$allowed_types = array('jpg', 'png', 'jpeg');
+//     $file_type = strtolower(pathinfo($new_image, PATHINFO_EXTENSION));
+//     if(!in_array($file_type, $allowed_types)) {
+//         echo '<script>alert("Invalid file type")</script>';
+//         exit;
+//     }*/
+
+//     // Update query using prepared statement
+//    echo $update_image = "UPDATE user SET profile ='".$new_image."' WHERE id = '".$id."'";
+//     $stmt = mysqli_query($connect,$update_image);
+//     /*mysqli_stmt_bind_param($stmt, "si", $new_image, $id);*/
+//    /* $run_update = mysqli_stmt_execute($stmt);*/
+
+//     if($stmt) {
+//         if(move_uploaded_file($tmp_name, $image_path)) {
+//             echo '<script>alert("Profile updated")</script>';
+//             // header("location:dashboard.php");
+//         } else {
+//             echo '<script>alert("Failed to upload image")</script>';
+//         }
+//     } else {
+//         echo '<script>alert("Profile does not update")</script>';
+//     }
+// }
+  $profile =  "SELECT * FROM user WHERE id = '".$id."'";
+  $run = mysqli_query($connect,$profile);
+  $fetch_image = mysqli_fetch_array($run);
 
   // ------------- update password ------------
 if(isset($_POST['update']))
@@ -239,12 +253,12 @@ if(isset($_POST['update']))
       });
 
     });
-    document.addEventListener("DOMContentLoaded", function () {
-      document.getElementById('editProfilebutton').addEventListener('click', function (e) {
-        e.preventDefault();
-        console.log("Edit Profile button clicked");
-      });
-    });
+    // document.addEventListener("DOMContentLoaded", function () {
+    //   document.getElementById('editProfilebutton').addEventListener('click', function (e) {
+    //     e.preventDefault();
+    //     console.log("Edit Profile button clicked");
+    //   });
+    // });
 
     document.addEventListener("DOMContentLoaded", function () {
       document.getElementById('editPasswordbutton').addEventListener('click', function (e) {
@@ -432,15 +446,17 @@ if(isset($_POST['update']))
                       data-toggle="dropdown" style="margin-right: -2px">
                       <span class="mail">
                         <?php echo $fetch['name'];?>
-                      </span>
+                      </span> 
                       <i class="fa fa-caret-down" style="color: black;"></i>
                     </a>
                     <ul class="dropdown-menu toggle_radius drop_back1">
                       <li>
-                        <a href="#" class="drop_back" id="editProfilebutton" data-toggle="modal"
-                          data-target="#profileModal">
+                        <a href="edit_profile.php?profile_id=<?php echo base64_encode($id)?>" class="drop_back" id="editProfilebutton">
                           <img src="../burgatory/image/edit.png" alt="icon" width="15px" height="15px"> Change Profile
                         </a>
+                      </li>
+                      <li>
+                        <a href="edit_profile.php"></a>
                       </li>
                       <li>
                         <a href="#" id="editPasswordbutton" class="drop_back" data-toggle="modal"
@@ -471,38 +487,6 @@ if(isset($_POST['update']))
                       <div class="valid">
                         <input type="text" value="<?php echo $fetch['email']?>" class="form-control my_acc_top"
                           placeholder="Email" id="email" name="email">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="modal fade" id="profileModal" tabindex="-1" role="dialog"
-                  aria-labelledby="profileModalLabel" aria-hidden="true">
-                  <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content rounded-3 shadow">
-                      <div class="modal-header bg-primary text-white d-flex align-items-center">
-                        <button type="button" class="close text-white mr-2" data-dismiss="modal" aria-label="Close"
-                          style="opacity:1;">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                        <h5 class="modal-title font-weight-bold mb-0" id="profileModalLabel">
-                          👤 EDIT PROFILE
-                        </h5>
-                      </div>
-                      <div class="modal-body">
-                        <form id="updateProfileForm" method="POST" action="" enctype="multipart/form-data">
-                          <div>
-                            <img src="profile_image/<?php echo $fetch_image['profile']?>" alt="profile" 
-                            style="margin: 0px 25px 0px 220px;" height="80px" width="85px">
-                          </div><br>
-                          <div class="form-group">
-                            <label for="username" class="font-weight-bold">Choose Profile</label>
-                            <input type="file" class="form-control" id="userprofile" name="userprofile">
-                          </div>
-                          <div class="d-flex justify-content-between mt-4">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <button type="submit" name="submit" value="save" class="btn btn-primary">Update Profile</button>
-                          </div>
-                        </form>
                       </div>
                     </div>
                   </div>

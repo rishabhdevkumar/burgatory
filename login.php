@@ -236,15 +236,15 @@ if(isset($_POST['save']))
           {
             required: "please choose date of birth"
           },
-          gen:
+          sel1:
           {
             required: "Please select Gender"
           },
-          State:
+          state:
           {
             required: "Please select State"
           },
-          City:
+          city:
           {
             required: "Please select City"
           },
