@@ -54,6 +54,7 @@
 							<table>
 								<thead>
 									<tr>
+										<th>Sl.No</th>
 										<th>image</th>
 										<th>status</th>
 										<th>Action</th>
@@ -61,10 +62,12 @@
 								</thead>
 								<tbody>
 									<?php
+										$i = 1;
 										while($fetch_page=mysqli_fetch_array($run_check))
 										{		
 									?>
 									<tr>
+										<td><?php echo $i?></td>
 										<td>
 											<img src="../admin/menu_img/<?php echo $fetch_page['gallery_image']?>"
 											style="height: 30px;width:40px">
@@ -75,8 +78,8 @@
 													 { 
                                                 ?>
 												<a href="javascript:void(0)" style="color:green;"
-													Title="Click here to deactivate"><img src="images/act.png" alt=""
-													onclick="change_status('<?php echo $fetch_page['id'] ?>', 'yes' )">
+													Title="Click here to deactivate"><img src="images/act.png" alt="" style="width: 20px; height: 20px;"
+													onclick="change_status('<?php echo $fetch_page['id'] ?>', 'yes' )" >
 												</a>
 												<?php 
 													}
@@ -95,13 +98,14 @@
 										</td>
 										<td style=" vertical-align: top;">
 											<a href="edit_gallery.php?eid=<?php=$fetch_page['id']?>" title="Edit"><img
-													src="images/pencil.png" alt="Edit" /></a>&nbsp;
+													src="images/pencil.png" alt="Edit" style="width: 20px; height: 20px;" /></a>&nbsp;
 											<a href="delete.php?gall_id=<?php echo $fetch_page['id']?>"
 												onclick="return confirm('Are you sure you want to delete this page?')"
-												title="Delete"><img src="images/cross.png" alt="Delete" /></a> &nbsp;
+												title="Delete"><img src="images/cross.png" alt="Delete" style="width: 20px; height: 20px;" /></a> &nbsp;
 										</td>
 									</tr>
 									<?php
+									$i++;
 										}
 									?>
 								</tbody>

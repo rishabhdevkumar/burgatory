@@ -1,8 +1,8 @@
 <?php
 	include("config.php");
-	$selct_admin="SELECT * FROM `admin_master` WHERE 1";
-	$run_admin=mysqli_query($connect,$selct_admin);
-	$fetch=mysqli_fetch_array($run_admin);
+	$selct_admin = "SELECT * FROM `admin_master` WHERE 1";
+	$run_admin = mysqli_query($connect,$selct_admin);
+	$fetch = mysqli_fetch_array($run_admin);
 
 	if(isset($_POST['update']))
 	{
@@ -31,7 +31,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-	<title>Dashboard || REDCHILLIES</title>
+	<title>Dashboard</title>
 	<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
 	<script type="text/javascript" src="js/jquery.notifyBar.js"></script>
 	<link rel="stylesheet" href="css/notifyBar.css" type="text/css" media="screen" />
@@ -68,6 +68,10 @@
 			</div>
 		</div>
 		<div id="main-header">
+			<div class="notification">
+				<img src="../admin/images/alarm.png" alt="">
+				<span class="badge">3</span>
+			</div>
 			<div class="profile">
 				<img src="" alt="" class="profile-img">
 				<span class="profile-name">John Doe</span>
@@ -84,51 +88,41 @@
 						<form action="" id="dashboard" method="post">
 							<fieldset>
 								<p>
-									<label><img src="images/form_name.png" width="20" height="20" border="0" alt=""
-											align="absmiddle">&nbsp;Username&nbsp;<span
-											style="color:red;">*</span></label>
+									<label>Username<span style="color:red;">*</span></label>
 									<input class="text-input medium-input validate[required,custom[onlyLetterSp]]"
 										placeholder="name" type="text" id="name" name="name"
 										value="<?php echo $fetch['username']; ?>"
 										onkeypress="return checkname(event);" />
 								</p>
 								<p>
-									<label><img src="images/form_email.png" width="20" height="20" border="0" alt=""
-											align="absmiddle">&nbsp;Email Address&nbsp;<span
-											style="color:red;">*</span></label>
+									<label>Email Address<span style="color:red;">*</span></label>
 									<input class="text-input medium-input validate[required,custom[email]]" type="text"
 										placeholder="email" id="email" name="email"
 										value="<?php echo $fetch['email_address']; ?>" />
 								</p>
 								<p>
-									<label><img src="images/paper_content_pencil_48.png" width="20" height="20"
-											border="0" alt="" align="absmiddle">&nbsp;Address&nbsp;<span
-											style="color:red;">*</span></label>
+									<label>Address<span style="color:red;">*</span></label>
 									<textarea class="text-input medium-input validate[required]" placeholder="address"
 										id="address" name="address" value=""><?php echo $fetch['address']; ?>
 									</textarea>
 								</p>
 								<p>
-									<label><img src="images/form_view.png" width="20" height="20" border="0" alt=""
-											align="absmiddle">&nbsp;Phone No&nbsp;<span
-											style="color:red;">*</span></label>
+									<label>Phone No<span style="color:red;">*</span></label>
 									<input class="text-input medium-input validate[required]" type="text"
 										placeholder="phone no" id="phone" name="phone"
 										value="<?php echo $fetch['phone_no']; ?>" />
 								</p>
 								<p>
-									<label><img src="images/form_password.png" width="20" height="20" border="0" alt=""
-											align="absmiddle">&nbsp;Password</label>
+									<label>Password<span style="color:red;">*</span></label>
 									<input class="text-input medium-input validate[equals[confirm]]" type="password"
 										id="password" name="password" />
 								</p>
 								<p>
-									<label><img src="images/form_password.png" width="20" height="20" border="0" alt=""
-											align="absmiddle">&nbsp;Confirm password</label>
+									<label>Confirm password<span style="color:red;">*</span></label>
 									<input class="text-input medium-input validate[equals[password]]" type="password"
 										id="confirm" name="confirm" />
 								</p>
-								<button class="button" type="submit" value="Update" id="update"
+								<button class="button" type="submit" value="update" id="update"
 									name="update">Update</button>
 							</fieldset>
 							<div class="clear"></div>
@@ -223,6 +217,37 @@
 		text-decoration: none;
 	}
 
+	#main-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 15px 20px;
+		position: relative;
+		gap: 30px;
+	}
+
+	.notification {
+		position: relative;
+		cursor: pointer;
+	}
+
+	.notification img {
+		width: 30px;
+		height: 30px;
+	}
+
+	.badge {
+		position: absolute;
+		top: -5px;
+		right: -5px;
+		background: red;
+		color: white;
+		border-radius: 50%;
+		padding: 2px 6px;
+		font-size: 12px;
+		margin: 4px 0px 0px 10px;
+	}
+
 	@media (max-width: 768px) {
 		#main-content {
 			padding: 10px;
@@ -262,8 +287,8 @@
 	}
 
 	.profile-img {
-		width: 35px;
-		height: 35px;
+		width: 30px;
+		height: 30px;
 		border-radius: 50%;
 		border: 2px solid #fff;
 	}
@@ -273,12 +298,13 @@
 		font-weight: 500;
 		margin-left: 10px;
 	}
+
 	#sidebar {
-  		width: 230px;
-  		position: fixed;
-  		top: 0;
-  		left: 0;
-  		bottom: 0;
-  		z-index: 999;
+		width: 230px;
+		position: fixed;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		z-index: 999;
 	}
 </style>

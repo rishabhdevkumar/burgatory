@@ -3,9 +3,15 @@
 ?>
 <div class="sidebar-header">
 	<img src="../admin/images/noImage.jpg" alt="Profile">
-	<h2>
-		<?php echo $_SESSION['adminname']?>
+	<h2 style="display: flex; justify-content: center; margin-top: -50px">
+		<span style="background: linear-gradient(135deg, #184e5ea2, #1edf7598); color: #fff; padding: 6px 15px; margin-left: 70px;
+     		border-radius: 25px; box-shadow: 0 4px 10px rgba(24, 24, 24, 0.2); font-size: 12px; font-weight: 600;
+      		letter-spacing: 1px;">Admin
+		</span>
 	</h2>
+	<span style="font-weight: 500; color: #c0c0c0; margin-left: 70px;">
+		<?php echo $_SESSION['adminname']; ?>
+	</span>
 </div>
 <br><br>
 
@@ -89,15 +95,13 @@
 		</a>
 	</li>
 	<li>
-		<a href="user_details.php"
-			class="nav-top-item no-submenu <?php echo $url=='user_details.php'?'current':'';?>">
+		<a href="user_details.php" class="nav-top-item no-submenu <?php echo $url=='user_details.php'?'current':'';?>">
 			<div>All Users</div>
 			<div style="float:left;margin-top:-22px;"></div>
 		</a>
 	</li>
 	<li>
-		<a href="logout.php"
-			class="nav-top-item no-submenu <?php echo $url=='logout.php'?'current':'';?>">
+		<a href="logout.php" class="nav-top-item no-submenu <?php echo $url=='logout.php'?'current':'';?>">
 			<div>Logout</div>
 			<div style="float:left;margin-top:-22px;"></div>
 		</a>
@@ -119,17 +123,19 @@
 		padding-top: 5px;
 		z-index: 1000;
 	}
+
 	.sidebar-header {
 		text-align: center;
 		border-bottom: 1px solid rgba(212, 212, 212, 0.64);
 		margin-bottom: 10px;
+		padding-bottom: 20px;
 	}
 
 	.sidebar-header img {
-		width: 80px;
-		height: 80px;
+		width: 60px;
+		height: 60px;
 		border-radius: 50%;
-		margin: 10px 0;
+		margin: 10px 0px 0px -140px;
 	}
 
 	.sidebar-header h2 {

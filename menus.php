@@ -1,8 +1,23 @@
 <?php
-  include("config.php");
-  $category_id = base64_decode($_GET['category_id']);
-  $get_menus = "SELECT * FROM menu WHERE status='y' AND category_id='".$category_id."'";
-  $run_menus = mysqli_query($connect, $get_menus);
+include("config.php");
+
+// Get and decode category_id safely (default to first category if not set)
+$category_id = isset($_GET['category_id']) ? base64_decode($_GET['category_id']) : 0;
+
+// Fetch all categories
+$get_categories = "SELECT * FROM categories WHERE status='y'";
+$run_categories = mysqli_query($connect, $get_categories);
+
+// If no category selected, use first category
+if ($category_id == 0 && $row = mysqli_fetch_array($run_categories)) {
+    $category_id = $row['id'];
+    // Reset result pointer
+    mysqli_data_seek($run_categories, 0);
+}
+
+// Fetch menus for selected category
+$get_menus = "SELECT * FROM menu WHERE status='y' AND category_id='" . mysqli_real_escape_string($connect, $category_id) . "'";
+$run_menus = mysqli_query($connect, $get_menus);
 ?>
 
 <!DOCTYPE html>
@@ -17,24 +32,24 @@
   <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
   <script>
-  function change_category_color_by_id(temp) {
+    function change_category_color_by_id(temp) {
       const category = temp;
       const value = 'category=' + category;
-    $.ajax({
+      $.ajax({
         url: "category_menu_ajax.php",
-        type: "POST", 
+        type: "POST",
         data: value,
         success: function (data) {
-            $(".menu_margin").html(data);
+          $(".menu_margin").html(data);
 
-            $(".menu-btn").removeClass("color_act");
-            $("button[onclick*='" + temp + "']").addClass("color_act");
+          $(".menu-btn").removeClass("color_act");
+          $("button[onclick*='" + temp + "']").addClass("color_act");
         },
         error: function (jqXHR, textstatus, errorThrown) {
-            console.log(textstatus, errorThrown);
+          console.log(textstatus, errorThrown);
         }
-    });
-}
+      });
+    }
 
     function get_city_by_state(temp) {
       const state = temp;
@@ -51,7 +66,7 @@
         }
       })
     }
-</script>
+  </script>
 
 </head>
 
@@ -142,7 +157,7 @@
               </li>
               <li class="divider"></li>
               <li><a class="text-center order_weight " href="cart.php"><button type="button"
-                  class="btn btn-danger text-center">View All</button></a></li>
+                    class="btn btn-danger text-center">View All</button></a></li>
             </ul>
           </li>
           <li class="dropdown">
@@ -160,7 +175,8 @@
                 $fetch = mysqli_fetch_array($run);
               ?>
               <p style="margin: 0px 0px 5px 0px; color: purple">
-                Welcome <?php echo $fetch['name']; ?>
+                Welcome
+                <?php echo $fetch['name']; ?>
               </p>
               <li><a href="my_account.php" class="drop_back">My Account</a></li>
               <li><a href="my_order.php" class="drop_back">My Order</a></li>
@@ -196,73 +212,65 @@
     </div>
   </div>
   <style>
-    .color_act
-    {
+    .color_act {
       background: skyblue;
-      color:red;
+      color: red;
       font-weight: 600;
     }
   </style>
   <!--select button section-->
- <div class="container">
+  <div class="container">
     <div class="row sel_but_row" style="margin-top: -110px;">
-      <div class="col-md-12 col-sm-12 col-xs-12 sel_but_col">
-        <?php
-          $get_catagory = "SELECT * FROM `categories` WHERE status = 'y'";
-          $run_catagory = mysqli_query($connect,$get_catagory);
-          while($fetch_catagory = mysqli_fetch_array($run_catagory))
-          {
-        ?>
-       <button 
-          class="menu-btn <?php if($fetch_catagory['id']=='1'){echo 'color_act';}?>" 
-           id="category" name="category"
-          onclick="change_category_color_by_id('<?php echo $fetch_catagory['id'];?>')">
-          <?php echo $fetch_catagory['name']; ?>
+      <div class="col-md-12 sel_but_col">
+        <?php while ($fetch_category = mysqli_fetch_array($run_categories)) { ?>
+        <button class="menu-btn <?php if ($fetch_category['id'] == $category_id) echo 'color_act'; ?>"
+          onclick="window.location.href='menus.php?category_id=<?php echo base64_encode($fetch_category['id']); ?>'">
+          <?php echo $fetch_category['name']; ?>
         </button>
-        <?php
-          }
-        ?>
+        <?php } ?>
       </div>
     </div>
   </div>
-<!--menu card section-->
- <div class="container mhj">
-  <div class="row dgtk">
-    <div class="col-md-12 col-sm-12 col-xs-12 menu_margin">
-      <?php
-        $get_menus = "SELECT * FROM `menu` WHERE status = 'y' and category_id='1'";
-        $run_menus = mysqli_query($connect, $get_menus);
-        while($menu = mysqli_fetch_array($run_menus)) {
-      ?>
+  <!--menu card section-->
+  <div class="container mhj">
+    <div class="row dgtk">
+      <div class="col-md-12 col-sm-12 col-xs-12 menu_margin">
+        <?php if(mysqli_num_rows($run_menus) > 0){
+            while ($menu = mysqli_fetch_array($run_menus)) { ?>
         <div class="col-md-4 col-sm-12 col-xs-12" id="menu-btn">
           <div class="col-md-12 col-sm-12 col-xs-12 border_st pad_rem">
             <div class="col-md-12 col-sm-12 col-xs-12 cbc item1 fix_height pad_rem opb1">
               <?php if($menu['is_new'] == 'y'){ ?>
-                <span class="notify-badge1">NEW</span>
+              <span class="notify-badge1">NEW</span>
               <?php } ?>
               <span class="notify-badge">
-                <i class="fa fa-inr jhdqa" aria-hidden="true"></i><?php echo $menu['menu_price']; ?>
+                <i class="fa fa-inr jhdqa" aria-hidden="true"></i>
+                <?php echo $menu['menu_price']; ?>
               </span>
-              <img src="admin/menu_img/<?php echo $menu['menu_image']; ?>" 
-                   class="img-thumbnail jsd pad_remv" 
-                   alt="<?php echo $menu['name']; ?>">
+              <img src="admin/menu_img/<?php echo $menu['menu_image']; ?>" class="img-thumbnail jsd pad_remv"
+                alt="<?php echo $menu['name']; ?>">
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12">
-              <h5 class="text_c margin_t"><?php echo $menu['menu_title']; ?></h5>
+              <h5 class="text_c margin_t">
+                <?php echo $menu['menu_title']; ?>
+              </h5>
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12">
-              <p class="marg_left"><?php echo $menu['menu_description']; ?></p>
+              <p class="marg_left">
+                <?php echo $menu['menu_description']; ?>
+              </p>
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12 www">
               <button type="button" class="btn btn-danger bt_style menu1_mar">ADD TO CART</button>
             </div>
           </div>
         </div>
-      <?php } ?>
+        <?php } } else { ?>
+        <p class="text-center">No menus found for this category.</p>
+        <?php } ?>
+      </div>
     </div>
   </div>
-</div>
-
   <!--end menu section-->
   <div class="container-fluid">
     <div class="row">
@@ -342,36 +350,6 @@
     </a><br><br>
     <p>© Copyright 2018 - All Rights Reserved</p>
   </footer>
-  <!--<script>
-      $(document).ready(function(){
-      // Initialize Tooltip
-      $('[data-toggle="tooltip"]').tooltip(); 
-
-      // Add smooth scrolling to all links in navbar + footer link
-      $(".navbar a, footer a[href='#myPage']").on('click', function(event) {
-
-      // Make sure this.hash has a value before overriding default behavior
-      if (this.hash !== "") {
-
-      // Prevent default anchor click behavior
-      event.preventDefault();
-
-      // Store hash
-      var hash = this.hash;
-
-      // Using jQuery's animate() method to add smooth page scroll
-      // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
-      $('html, body').animate({
-      scrollTop: $(hash).offset().top
-      }, 900, function(){
-
-      // Add hash (#) to URL when done scrolling (default click behavior)
-      window.location.hash = hash;
-      });
-      } // End if
-      });
-      })
-</script>-->
 
 </body>
 

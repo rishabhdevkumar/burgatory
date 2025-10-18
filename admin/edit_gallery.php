@@ -1,15 +1,14 @@
-<?php
-	
+<?php	
 	include("config.php");
 	/*if(!isset($_SESSION['id']))
 	{
 		header("location:index.php?login");
 	}*/
 	
-	$id=$_GET['eid'];
-	$select_img="SELECT * FROM `dosa_gallery_photo` WHERE id='".$id."'";
-	$run_img=mysql_query($select_img);
-	$fetch_gall=mysql_fetch_array($run_img);
+	$id = $_GET['eid'];
+	$select_img = "SELECT * FROM `gallery_photo` WHERE id='".$id."'";
+	$run_img = mysqli_query($connect,$select_img);
+	$fetch_gall = mysqli_fetch_array($run_img);
 	if(isset($_GET['eid']))
 	{
 	
@@ -23,13 +22,13 @@
 		$types = array('jpeg','jpg','png','gif');
 		if(in_array($type[1],$types))
 	  {
-		  $filename=basename($_FILES['img']['name']);
-		  $extension= pathinfo($filename,PATHINFO_EXTENSION);
-		  $new= md5($filename).'_'.rand(0000,999).'.'.$extension;
-		  $IMAGE= $new;
-		  $update_gallery="UPDATE `dosa_gallery_photo` SET status='".$status."',gallery_image='".$IMAGE."',img_caption='".$img_caption."' WHERE id='".$id."'";
+		  $filename = basename($_FILES['img']['name']);
+		  $extension = pathinfo($filename,PATHINFO_EXTENSION);
+		  $new = md5($filename).'_'.rand(0000,999).'.'.$extension;
+		  $IMAGE = $new;
+		  $update_gallery = "UPDATE `gallery_photo` SET status='".$status."',gallery_image='".$IMAGE."',img_caption='".$img_caption."' WHERE id='".$id."'";
 		  
-		  $run_gallery=mysql_query($update_gallery);
+		  $run_gallery = mysqli_query($connect,$update_gallery);
 		   move_uploaded_file(($_FILES['img']['tmp_name']),'menu_img/'.$IMAGE);
 		   if($run_gallery)
 		   {

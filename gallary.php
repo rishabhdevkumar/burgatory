@@ -1,5 +1,7 @@
 <?php
   include("config.php");
+  $get_gallery = "SELECT * FROM `gallery_photo` WHERE 1";
+  $gallery = mysqli_query($connect,$get_gallery);
 ?>
 
 <!DOCTYPE html>
@@ -171,13 +173,20 @@
     <div class="row dgtk">
       <div class="col-md-12 col-sm-12 col-xs-12">
         <ul class="lu-style">
+          <?php
+          while($fetch_image=mysqli_fetch_array($gallery))
+            {
+          ?>
           <li class="list_li">
             <a class="fancybox" rel="group" href="image/sub-buzz-11458-1517958661-1.jpg"><img
-                src="image/sub-buzz-11458-1517958661-1.jpg" class="img-thumbnail jsd pad_remv fix_height1"
+                src="admin/menu_img/<?php echo $fetch_image['gallery_image']?>" class="img-thumbnail jsd pad_remv fix_height1"
                 alt="Cinque Terre">
             </a>
           </li>
-          <li class="list_li">
+          <?php
+            }
+          ?>
+          <!-- <li class="list_li">
             <a class="fancybox" rel="group" href="image/maxresdefaulfft.jpg"><img src="image/maxresdefaulfft.jpg"
                 class="img-thumbnail jsd pad_remv fix_height1" alt="Cinque Terre"></a>
           </li>
@@ -198,7 +207,7 @@
             <a class="fancybox" rel="group" href="image/Classic-Spaghetti-Kesari-Tours.jpg"><img
                 src="image/Classic-Spaghetti-Kesari-Tours.jpg" class="img-thumbnail jsd pad_remv fix_height1"
                 alt="Cinque Terre">
-          </li></a>
+          </li></a> -->
         </ul>
       </div>
     </div>

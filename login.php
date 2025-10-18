@@ -5,6 +5,8 @@ $change_profile = "SELECT * FROM `user` WHERE id='".$user_id."'";
 $run_profile = mysqli_query($connect,$change_profile);
 $fetch_profile = mysqli_fetch_array($run_profile);
 
+
+
 if(isset($_POST['save']))
 {
     $Name = $_POST['name'];

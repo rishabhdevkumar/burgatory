@@ -205,28 +205,29 @@
     <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12">
         <?php
-          $get_menus = "SELECT * FROM `menu` WHERE status = 'y' LIMIT 1";
+          $get_menus = "SELECT * FROM `categories` WHERE 1 ORDER BY RAND() LIMIT 0,3";
           $run_menus = mysqli_query($connect, $get_menus);
-          if($menu = mysqli_fetch_array($run_menus)) { 
+          while($menu = mysqli_fetch_array($run_menus)) { 
         ?>
         <div class="col-md-4 col-sm-12 col-xs-12">
           <div class="col-md-12 col-sm-12 col-xs-12 border_st pad_rem">
             <div class="col-12 col-sm-12 col-xs-12 fix_height pad_rem opb1">
-              <img src="admin/menu_img/<?php echo $menu['menu_image']; ?>" class="img-thumbnail jsd pad_remv"
+              <img src="admin/menu_img/<?php echo $menu['banner_image']; ?>" class="img-thumbnail jsd pad_remv"
                 alt="<?php echo $menu['name']; ?>">
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12 opo">
               <p class="pob">
-                <?php echo $menu['menu_title']; ?>
+                <?php echo $menu['name'];?>
               </p>
+              <p class="undr_line"></p>
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12 cbc">
               <h6>
-                <?php echo $menu['menu_description']; ?>
+                <?php echo $menu['description']; ?>
               </h6>
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12 www">
-              <a href="menus.php?category_id=<?php echo base64_encode($id)?>">
+              <a href="menus.php?category_id=<?php echo base64_encode($menu['id']); ?>">
                 <button type="button" class="btn btn-danger btn-md dfa">VIEW MORE</button>
               </a>
             </div>
@@ -235,7 +236,7 @@
         <?php
           }
         ?>
-        <div class="col-md-4 col-sm-12 col-xs-12">
+        <!-- <div class="col-md-4 col-sm-12 col-xs-12">
           <div class="col-md-12 col-sm-12 col-xs-12 border_st pad_rem">
             <div class="col-md-12 col-sm-12 col-xs-12 fan fix_height pad_rem opb1">
               <img src="image/img6.jpg" class="img-thumbnail jsd pad_remv" alt="Cinque Terre">
@@ -267,7 +268,7 @@
               <a href="menus.html"> <button type="button" class="btn btn-danger btn-md dfa">VIEW MORE</button></a>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
