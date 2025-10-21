@@ -1,23 +1,17 @@
 <?php
-include("config.php");
+  include("config.php");
 
-// Get and decode category_id safely (default to first category if not set)
-$category_id = isset($_GET['category_id']) ? base64_decode($_GET['category_id']) : 0;
+  $category_id = isset($_GET['category_id']) ? base64_decode($_GET['category_id']) : 0;
 
-// Fetch all categories
-$get_categories = "SELECT * FROM categories WHERE status='y'";
-$run_categories = mysqli_query($connect, $get_categories);
+  $get_categories = "SELECT * FROM categories WHERE status='y'";
+  $run_categories = mysqli_query($connect, $get_categories);
 
-// If no category selected, use first category
-if ($category_id == 0 && $row = mysqli_fetch_array($run_categories)) {
+  if ($category_id == 0 && $row = mysqli_fetch_array($run_categories)) {
     $category_id = $row['id'];
-    // Reset result pointer
     mysqli_data_seek($run_categories, 0);
-}
-
-// Fetch menus for selected category
-$get_menus = "SELECT * FROM menu WHERE status='y' AND category_id='" . mysqli_real_escape_string($connect, $category_id) . "'";
-$run_menus = mysqli_query($connect, $get_menus);
+  }
+  $get_menus = "SELECT * FROM menu WHERE status='y' AND category_id='" . mysqli_real_escape_string($connect, $category_id) . "'";
+  $run_menus = mysqli_query($connect, $get_menus);
 ?>
 
 <!DOCTYPE html>
@@ -342,7 +336,6 @@ $run_menus = mysqli_query($connect, $get_menus);
       </div>
     </div>
   </div>
-  <!--end important link section-->
   <!-- Footer -->
   <footer class="text-center footr">
     <a class="up-arrow" href="#myPage" data-toggle="tooltip" title="TO TOP">

@@ -26,8 +26,8 @@
           <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand mmm1 out_line acc_col" href="index.html">
-          <span style="color:#c77648;margin-left: 70px;">ONE</span><span style="color:#FE7743;">Bite</span>
-          <img src="image/1B2.png" width="100" height="100" class="ttt" style="margin-left: -35px;margin-top:-60px;"></a>
+          <span style="color:#c77648;margin-left: 50px;">ONE</span><span style="color:#FE7743;">BITE</span>
+          <img src="image/1B2.png" width="70" height="70" class="ttt" style="margin-left: -25px;margin-top:-45px;"></a>
       </div>
       <div class="collapse navbar-collapse mmm askjd" id="myNavbar">
         <ul class="nav navbar-nav navbar-right iii">
@@ -104,8 +104,11 @@
                 </span>
               </li>
               <li class="divider"></li>
-              <li><a class="text-center order_weight " href="cart.php"><button type="button"
-                    class="btn btn-danger text-center">View All</button></a></li>
+              <li>
+                <a class="text-center order_weight " href="cart.php"><button type="button"
+                    class="btn btn-danger text-center">View All</button>
+                </a>
+              </li>
             </ul>
           </li>
           <li class="dropdown">
@@ -139,14 +142,12 @@
               ?>
             </ul>
           </li>
-
         </ul>
       </div>
     </div>
   </nav>
 
   <div id="myCarousel" class="carousel slide" data-ride="carousel">
-    <!-- Indicators -->
     <ol class="carousel-indicators">
       <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
       <li data-target="#myCarousel" data-slide-to="1"></li>
@@ -154,7 +155,6 @@
       <li data-target="#myCarousel" data-slide-to="3"></li>
       <li data-target="#myCarousel" data-slide-to="4"></li>
     </ol>
-    <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox">
       <div class="item active htt">
         <img src="image/pasta-puttanesca-horiz-c-1800.jpg" alt="">
@@ -192,7 +192,6 @@
         </div>
       </div>
     </div>
-    <!-- Left and right controls -->
     <a class="left carousel-control acb" href="#myCarousel" role="button" data-slide="prev">
       <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
       <span class="sr-only">Previous</span>
@@ -237,43 +236,9 @@
         <?php
           }
         ?>
-        <!-- <div class="col-md-4 col-sm-12 col-xs-12">
-          <div class="col-md-12 col-sm-12 col-xs-12 border_st pad_rem">
-            <div class="col-md-12 col-sm-12 col-xs-12 fan fix_height pad_rem opb1">
-              <img src="image/img6.jpg" class="img-thumbnail jsd pad_remv" alt="Cinque Terre">
-            </div>
-            <div class="col-md-12 col-sm-12 col-xs-12 opo">
-              <p class="pob">WE SERVE AUTHENTIC CUISINE</p>
-            </div>
-            <div class="col-md-12 col-sm-12 col-xs-12 cbc">
-              <h6>Come and enjoy the good test and hospitality in burgatory </h6>
-            </div>
-            <div class="col-md-12 col-sm-12 col-xs-12 www">
-              <a href="menus.html"> <button type="button" class="btn btn-danger btn-md dfa">VIEW MORE</button></a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-12 col-xs-12">
-          <div class="col-md-12 col-sm-12 col-xs-12 border_st pad_rem">
-            <div class="col-md-12 col-sm-12 col-xs-12 fan fix_height pad_rem opb1">
-              <img src="image/180f85abcf234aa09fad878c04d286e3.jpg" class="img-thumbnail jsd pad_remv"
-                alt="Cinque Terre">
-            </div>
-            <div class="col-md-12 col-sm-12 col-xs-12 opo">
-              <p class="pob">SAY HELLO TO BURGATORY</p>
-            </div>
-            <div class="col-md-12 col-sm-12 col-xs-12 cbc">
-              <h6>Come and enjoy the good test and hospitality in burgatory </h6>
-            </div>
-            <div class="col-md-12 col-sm-12 col-xs-12 www">
-              <a href="menus.html"> <button type="button" class="btn btn-danger btn-md dfa">VIEW MORE</button></a>
-            </div>
-          </div>
-        </div> -->
       </div>
     </div>
   </div>
-  <!--end section element-->
   <!--start daily section-->
   <div class="container mhj">
     <div class="row jhg trd" id="ty">
@@ -289,74 +254,53 @@
         <p class="asa">FEATURED</p>
       </div>
       <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="col-md-4 col-sm-12 col-xs-12">
-          <div class="col-md-12 col-sm-12 col-xs-12 border_st pad_rem">
-            <div class="col-md-12 col-sm-12 col-xs-12 cbc item1 fix_height pad_rem opb1">
-              <span class="notify-badge"><i class="fa fa-inr jhdqa" aria-hidden="true"></i>199</span>
-              <img src="image/1515456591895.jpg" class="img-thumbnail jsd pad_remv" alt="Cinque Terre">
-            </div>
-            <div class="col-md-12 col-sm-12 col-xs-12 ma">
-              <h5 class="text_c margin_t">SDFDSF</h5>
-            </div>
-            <div class="col-md-12 col-sm-12 col-xs-12">
-              <p class="marg_left">
-                It is a long established fact that a reader will be distracted by the readable content of a page when
-                looking at its layout.
-              </p>
-            </div>
-            <div class="col-md-12 col-sm-12 col-xs-12">
-              <h5 class="marg_left text_c">Read More &#8594;</h5>
-            </div>
-          </div>
-        </div>
+        <?php
+          include("config.php");
+          $get_menus = "SELECT * FROM `menu` WHERE status='y' ORDER BY RAND() LIMIT 3";
+          $run_menus = mysqli_query($connect, $get_menus);
 
+          if (mysqli_num_rows($run_menus) > 0) {
+            while($menu = mysqli_fetch_array($run_menus)) { 
+          ?>
         <div class="col-md-4 col-sm-12 col-xs-12">
           <div class="col-md-12 col-sm-12 col-xs-12 border_st pad_rem">
             <div class="col-md-12 col-sm-12 col-xs-12 cbc item1 fix_height pad_rem opb1">
-              <span class="notify-badge"><i class="fa fa-inr jhdqa" aria-hidden="true"></i>499</span>
-              <img src="./image/chinese/manchurian-625_625x350_81441392055.jpg" class="img-thumbnail jsd pad_remv"
-                alt="Cinque Terre">
+              <span class="notify-badge">
+                <i class="fa fa-inr jhdqa" aria-hidden="true"></i>
+                <?php echo $menu['menu_price']; ?>
+              </span>
+              <img src="admin/menu_img/<?php echo $menu['menu_image']; ?>" class="img-thumbnail jsd pad_remv"
+                alt="<?php echo $menu['menu_title']; ?>">
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12 ma">
-              <h5 class="text_c margin_t">SDFDSF</h5>
+              <h5 class="text_c margin_t">
+                <?php echo strtoupper($menu['menu_title']); ?>
+              </h5>
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12">
               <p class="marg_left">
-                It is a long established fact that a reader will be distracted by the readable content of a page when
-                looking at its layout.
+                <?php echo $menu['menu_description']; ?>
               </p>
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12">
-              <h5 class="marg_left text_c">Read More &#8594;</h5>
+              <h5 class="marg_left text_c">
+                <a href="menus.php?category_id=<?php echo base64_encode($menu['category_id']); ?>"
+                  style="text-decoration:none; color:inherit;">
+                  Read More &#8594;
+                </a>
+              </h5>
             </div>
           </div>
         </div>
-
-        <div class="col-md-4 col-sm-12 col-xs-12">
-          <div class="col-md-12 col-sm-12 col-xs-12 border_st pad_rem">
-            <div class="col-md-12 col-sm-12 col-xs-12 cbc item1 fix_height pad_rem opb1">
-              <span class="notify-badge"><i class="fa fa-inr jhdqa" aria-hidden="true"></i>299</span>
-              <img src="image/img2.jpg" class="img-thumbnail jsd pad_remv" alt="Cinque Terre">
-            </div>
-            <div class="col-md-12 col-sm-12 col-xs-12 ma">
-              <h5 class="text_c margin_t">SDFDSF</h5>
-            </div>
-            <div class="col-md-12 col-sm-12 col-xs-12">
-              <p class="marg_left">
-                It is a long established fact that a reader will be distracted by the readable content of a page when
-                looking at its layout.
-              </p>
-            </div>
-            <div class="col-md-12 col-sm-12 col-xs-12">
-              <h5 class="marg_left text_c">Read More &#8594;</h5>
-            </div>
-          </div>
-        </div>
+        <?php 
+          } 
+            } else {
+           echo "<p style='text-align:center; color:red;'>No menu items found!</p>";
+          }
+        ?>
       </div>
     </div>
   </div>
-  </div>
-  <!--end daily section-->
   <!--start video section-->
   <div class="container-fluid text-center">
     <div class="row text-center">
@@ -382,7 +326,6 @@
       </div>
     </div>
   </div>
-  <!--end video section-->
   <!--stat popular section-->
   <div class="container ">
     <div class="row jhg trd1" id="ty">
@@ -398,83 +341,45 @@
         <p class="asa">POPULAR MENU</p>
       </div>
       <div class="col-md-12 col-sm-12 col-xs-12">
+        <?php
+          $get_menus = "SELECT * FROM `menu` ORDER BY RAND() LIMIT 3";
+          $run_menus = mysqli_query($connect, $get_menus);
+          while($menu = mysqli_fetch_array($run_menus)) { 
+        ?>
         <div class="col-md-4 col-sm-12 col-xs-12">
           <div class="col-md-12 col-sm-12 col-xs-12 border_st pad_rem">
             <div class="col-md-12 col-sm-12 col-xs-12 cbc item1 fix_height pad_rem opb1">
               <span class="notify-badge">NEW</span>
-              <img src="image/image.jpeg" class="img-thumbnail jsd pad_remv" alt="Cinque Terre">
+              <img src="admin/menu_img/<?php echo $menu['menu_image']; ?>" class="img-thumbnail jsd pad_remv"
+                alt="<?php echo $menu['menu_title']; ?>">
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12 text-center">
-              <h5 class="dhhkd margin_t1">FRIED CHICKEN</h5>
+              <h5 class="dhhkd margin_t1">
+                <?php echo strtoupper($menu['menu_title']); ?>
+              </h5>
               <p class="undr_line"></p>
-              <h5 class="marg_left3 text_c font_w"><i class="fa fa-inr jhdqa" aria-hidden="true"></i>259</h5>
+              <h5 class="marg_left3 text_c font_w">
+                <i class="fa fa-inr jhdqa" aria-hidden="true"></i>
+                <?php echo $menu['menu_price']; ?>
+              </h5>
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12 text-center marg-t">
               <p class="marg_left">
-                It is a long established fact that a reader will be distracted by the readable content of a page when
-                looking at its layout
+                <?php echo $menu['menu_description']; ?>
               </p>
               <p class="undr_line"></p>
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12 text-center marg-t">
-              <button type="button" class="btn btn-danger bt_style">ADD TO CART</button>
+              <a href="menus.php?category_id=<?php echo base64_encode($menu['category_id']); ?>">
+                <button type="button" class="btn btn-danger bt_style">VIEW MORE</button>
+              </a>
             </div>
           </div>
         </div>
-
-        <div class="col-md-4 col-sm-12 col-xs-12">
-          <div class="col-md-12 col-sm-12 col-xs-12 border_st pad_rem">
-            <div class="col-md-12 col-sm-12 col-xs-12 cbc item1 fix_height pad_rem opb1">
-              <span class="notify-badge">NEW</span>
-              <img src="image/pasta-puttanesca-horiz-c-1800.jpg" class="img-thumbnail jsd pad_remv"
-                class="img-thumbnail jsd pad_remv" alt="Cinque Terre">
-            </div>
-            <div class="col-md-12 col-sm-12 col-xs-12 text-center">
-              <h5 class="dhhkd margin_t1">CLASSIC ITALIAN PASTA</h5>
-              <p class="undr_line"></p>
-              <h5 class="marg_left3 text_c font_w"><i class="fa fa-inr jhdqa" aria-hidden="true"></i>200</h5>
-            </div>
-            <div class="col-md-12 col-sm-12 col-xs-12 text-center marg-t">
-              <p class="marg_left">
-                It is a long established fact that a reader will be distracted by the readable content of a page when
-                looking at its layout
-              </p>
-              <p class="undr_line"></p>
-            </div>
-            <div class="col-md-12 col-sm-12 col-xs-12 text-center marg-t">
-              <button type="button" class="btn btn-danger bt_style">ADD TO CART</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-4 col-sm-12 col-xs-12">
-          <div class="col-md-12 col-sm-12 col-xs-12 border_st pad_rem">
-            <div class="col-md-12 col-sm-12 col-xs-12 cbc item1 fix_height pad_rem opb1">
-              <span class="notify-badge">NEW</span>
-              <img src="image/pizza--575x323.jpg" class="img-thumbnail jsd pad_remv" class="img-thumbnail jsd pad_remv"
-                alt="Cinque Terre">
-            </div>
-            <div class="col-md-12 col-sm-12 col-xs-12 text-center">
-              <h5 class="dhhkd margin_t1">PENN PIZZA</h5>
-              <p class="undr_line"></p>
-              <h5 class="marg_left3 text_c font_w"><i class="fa fa-inr jhdqa" aria-hidden="true"></i>299</h5>
-            </div>
-            <div class="col-md-12 col-sm-12 col-xs-12 text-center marg-t">
-              <p class="marg_left">
-                It is a long established fact that a reader will be distracted by the readable content of a page when
-                looking at its layout
-              </p>
-              <p class="undr_line"></p>
-            </div>
-            <div class="col-md-12 col-sm-12 col-xs-12 text-center marg-t">
-              <button type="button" class="btn btn-danger bt_style">ADD TO CART</button>
-            </div>
-          </div>
-        </div>
+        <?php } ?>
       </div>
     </div>
   </div>
-  <!--end popular section-->
   <!--start latest news section-->
   <div class="container ">
     <div class="row jhg trd2" id="ty">
@@ -522,7 +427,6 @@
             </div>
           </div>
         </div>
-
         <div class="col-md-6 col-sm-12 col-xs-12 text-center">
           <div class="col-md-12 col-sm-12 col-xs-12 text-center item1 pad_rem border_st">
             <div class="col-md-12 col-sm-12 col-xs-12 img_hight text-center item1 pad_rem opb1">
@@ -567,7 +471,7 @@
       <div class="col-md-12 col-md-12 col-xs-12 text_center1 nopadd video_sec1">
         <div class="col-md-3 col-sm-12 col-xs-12 text-center asddf clearfix">
           <div class="col-md-12 col-sm-12 col-xs-12 text-center">
-            <h5 class="qaxds">BURGATORY<img src="image/cropped-Logo-1.png" height="20"></h5>
+            <h5 class="qaxds">ONEBITE<img src="image/1B2.png" style="margin-left: -140px;"></a></h5>
             <p class="mar-le">
               vienna a premium resturant wordpress
               theme develop by micro themes and
@@ -639,7 +543,6 @@
     </a><br><br>
     <p>© Copyright 2018 - All Rights Reserved</p>
   </footer>
-
 </body>
 
 </html>
