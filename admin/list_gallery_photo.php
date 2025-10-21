@@ -96,7 +96,7 @@
 												?>
 											</div>
 										</td>
-										<td style=" vertical-align: top;">
+										<td>
 											<a href="edit_gallery.php?eid=<?php=$fetch_page['id']?>" title="Edit"><img
 													src="images/pencil.png" alt="Edit" style="width: 20px; height: 20px;" /></a>&nbsp;
 											<a href="delete.php?gall_id=<?php echo $fetch_page['id']?>"
@@ -145,41 +145,11 @@ thead th {
   letter-spacing: 0.5px;
 }
 
-tbody tr {
-  border-bottom: 1px solid #e0e0e0;
-  transition: background 0.2s ease-in-out;
-}
-
-tbody tr:hover {
-  background: #f9f9f9;
-}
-
 tbody td {
   padding: 10px 15px;
   vertical-align: middle;
+  text-align: center;
   color: #333;
-}
-
-tbody td img {
-  border-radius: 4px;
-  height: 40px;
-  width: 50px;
-  object-fit: cover;
-  box-shadow: 0px 1px 3px rgba(0,0,0,0.2);
-}
-
-tbody td a img {
-  cursor: pointer;
-  transition: transform 0.2s ease-in-out;
-}
-
-tbody td a img:hover {
-  transform: scale(1.1);
-}
-
-td a {
-  text-decoration: none;
-  margin: 0 5px;
 }
 
 td a[title="Edit"] img {
