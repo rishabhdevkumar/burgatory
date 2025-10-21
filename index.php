@@ -25,8 +25,9 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand mmm1 out_line acc_col" href="index.html">BURGATORY<img src="image/burger.png" width="60"
-            height="60" class="ttt"></a>
+        <a class="navbar-brand mmm1 out_line acc_col" href="index.html">
+          <span style="color:#c77648;margin-left: 70px;">ONE</span><span style="color:#FE7743;">Bite</span>
+          <img src="image/1B2.png" width="100" height="100" class="ttt" style="margin-left: -35px;margin-top:-60px;"></a>
       </div>
       <div class="collapse navbar-collapse mmm askjd" id="myNavbar">
         <ul class="nav navbar-nav navbar-right iii">
