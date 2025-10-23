@@ -70,18 +70,18 @@ if(isset($_POST['email_address']) && $_POST['email_address']!='' && isset($_POST
 	
 	</script>
 </head>  
-<body style="background:#F7F7F7;" onload = "document.getElementById('email_address').focus();">		
-	<div id="login-wrapper" class="png_bg">
+<body onload = "document.getElementById('email_address').focus();">		
+	<div id="login-wrapper">
 		<div id="login-top" style="margin-top:-30px;;">&nbsp;</div>		
-		<div id="login-content" style="width:508px;height:272px;background: #f7f7f7 url('images/loginbox_bg.png') top left no-repeat;">
-			<div style="width:300px;clear:both;height:30px;padding-top:30px;padding-left:120px;">
-				<h4><font color = "#FFFFFF">Forgot Password || REDCHILLIES</font></h4>
+		<div id="login-content">
+			<div>
+				<h4><font color = "#FFFFFF">Forgot Password</font></h4>
 			</div>
 			<form name ="forgot_password_form" id ="forgot_password_form" action ="" 
 			method="POST">							
-				<div style="width:385px;clear:both;height:50px;padding-left:65px">
+				<!-- <div style="width:385px;clear:both;height:50px;padding-left:65px">
 					<font color = "#FFFFFF">Please enter your valid email address to regenerate your password.</font>
-				</div>
+				</div> -->
 				<div class="clear"></div>
 				<div style="width:300px;clear:both;height:30px;padding-left:80px">
 					<div style="width:30px;float:left;margin-left:40px;" align="right">
@@ -103,18 +103,88 @@ if(isset($_POST['email_address']) && $_POST['email_address']!='' && isset($_POST
 	</div>		
 </body>  
 </html>
-<!-- <?php
-if(isset($_SESSION['SET_FLASH']))
-{
-	if($_SESSION['SET_TYPE']=='success')
-	{
-		echo "<script type='text/javascript'>showSuccess('".$_SESSION['SET_FLASH']."');</script>";
-	}
-	else if($_SESSION['SET_TYPE']=='error')
-	{
-		echo "<script type='text/javascript'>showError('".$_SESSION['SET_FLASH']."');</script>";
-	}
+
+<style>
+#login-wrapper {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(135deg, #c31432, #240b36);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Segoe UI", Arial, sans-serif;
 }
-unset($_SESSION['SET_FLASH']);
-unset($_SESSION['SET_TYPE']);
-?> -->
+
+/* Login box */
+#login-content {
+  width: 508px;
+  height: 272px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+/* Header */
+#login-content h4 {
+  margin: 0;
+  font-size: 20px;
+  color: #d32f2f;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+/* Instruction text */
+#login-content font {
+  color: #333;
+  font-size: 14px;
+}
+
+/* Input field */
+.text-input {
+  width: 200px;
+  height: 30px;
+  /* padding: 0px 10px; */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  transition: 0.3s;
+}
+
+.text-input:focus {
+  border-color: #d32f2f;
+  box-shadow: 0 0 5px rgba(211, 47, 47, 0.5);
+}
+
+/* Submit button */
+.button {
+  background: #d32f2f;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 7px 15px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.button:hover {
+  background: #b71c1c;
+}
+
+/* Back link */
+a {
+  color: #d32f2f;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Utility */
+.clear {
+  clear: both;
+}
+
+</style>

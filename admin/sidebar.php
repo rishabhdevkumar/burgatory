@@ -95,16 +95,16 @@
 		</a>
 	</li>
 	<li>
-		<a href="user_details.php" class="nav-top-item no-submenu <?php echo $url=='user_details.php'?'current':'';?>">
-			<div>All Users</div>
+		<a href="#"
+			class="nav-top-item <?php echo $url=='user_details.php' || $url=='notification.php' ?'current':''; ?>">
+			<div>Users</div>
 			<div style="float:left;margin-top:-22px;"></div>
 		</a>
-	</li>
-	<li>
-		<a href="logout.php" class="nav-top-item no-submenu <?php echo $url=='logout.php'?'current':'';?>">
-			<div>Logout</div>
-			<div style="float:left;margin-top:-22px;"></div>
-		</a>
+		<ul>
+			<li><a href="user_details.php" class="<?php echo $url=='user_details.php'?'current':'';?>">Users Details</a></li>
+			<li><a href="notifications.php" class="<?php echo $url=='notifications.php'?'current':'';?>">Notifications</a></li>
+			<li><a href="logout.php" class="<?php echo $url=='logout.php'?'current':'';?>">Logout</a></li>
+		</ul>
 	</li>
 </ul>
 

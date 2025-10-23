@@ -69,8 +69,10 @@
 		</div>
 		<div id="main-header">
 			<div class="notification">
-				<img src="../admin/images/alarm.png" alt="">
-				<span class="badge">3</span>
+				<a href="notifications.php">
+					<img src="../admin/images/alarm.png" alt="">
+					<span class="badge">3</span>
+				</a>
 			</div>
 			<div class="profile">
 				<img src="" alt="" class="profile-img">

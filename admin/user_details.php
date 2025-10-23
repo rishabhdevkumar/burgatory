@@ -27,7 +27,7 @@ if (!$run) {
     <link rel="stylesheet" type="text/css" href="css/validationEngine.jquery.css">
     <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
     <script src="ckeditor/_samples/sample.js" type="text/javascript"></script>
-
+<!-- 
     <script type="text/javascript">
         $(document).ready(function () {
             $("#dashboard").validationEngine();
@@ -115,7 +115,7 @@ if (!$run) {
                 }
             })
         }
-    </script>
+    </script> -->
 </head>
 
 <body style="background: #f8f8f8">
@@ -139,8 +139,8 @@ if (!$run) {
                                     <tr>
                                         <th class="user_detail">Sl No</th>
                                         <th class="user_detail">Profile</th>
-                                        <th class="user_detail">Full Name</th>
-                                        <th class="user_detail">Email Id</th>
+                                        <th class="user_detail">Name</th>
+                                        <th class="user_detail">Email</th>
                                         <th class="user_detail">Dob</th>
                                         <th class="user_detail">State</th>
                                         <th class="user_detail">City</th>
@@ -195,6 +195,13 @@ if (!$run) {
                                                 data-id="<?php echo htmlspecialchars($fetch_user['id']); ?>">
                                                 <img src="images/form_delete.png" alt="Delete">
                                             </a>
+                                            <div class="notification">
+                                             <a href="javascript:void(0)"
+                                                title="Notification">
+                                                <img src="images/bell(1).png" alt="Delete">
+                                                <span class="badge">3</span>
+                                            </a>
+                                            </div>
                                         </td>
                                     </tr>
                                     <?php
@@ -370,4 +377,34 @@ if (!$run) {
     .btn-secondary {
         border-radius: 5px;
     }
+    /* #main-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 15px 20px;
+		position: relative;
+		gap: 30px;
+	} */
+
+	.notification {
+		position: relative;
+		cursor: pointer;
+	}
+
+	.notification img {
+		width: 30px;
+		height: 30px;
+	}
+
+	.badge {
+		position: absolute;
+		top: -5px;
+		right: -5px;
+		background: red;
+		color: white;
+		border-radius: 50%;
+		padding: 2px 6px;
+		font-size: 12px;
+		margin: 4px 0px 0px 10px;
+	}
 </style>
