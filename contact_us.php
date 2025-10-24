@@ -4,6 +4,7 @@
   {
     $Name = $_POST['name'];
     $Email = $_POST['email'];
+    $Phone = $_POST['phone'];
     $Subject = $_POST['sub'];
     $Enquire = $_POST['enq'];
 
@@ -50,6 +51,13 @@
             email: true
           },
 
+         phone: {
+            required: true,
+            minlength: 10,
+            maxlength: 10,
+            digits: true
+          },
+
           sub: "required",
           enq: "required"
         },
@@ -61,6 +69,11 @@
           },
 
           email: "Please enter a valid email address",
+
+          phone: {
+            required: "Please enter your Phone No",
+            minlength: "Your Phone No must consist of at least 10 digits"
+          },
 
           sub:
           {
@@ -232,7 +245,7 @@
       </div>
     </div>
   </div>
-  <!--start section element-->
+
   <div class="container">
     <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12 map_heihgt1 u_map">
@@ -243,13 +256,13 @@
       <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="col-md-4 col-sm-12 col-xs-12 cap_mar">
           <h5 class="cont_add">ADDRESS</h5>
-          <p class="pad_add">4 Main Street</p>
-          <p> New York, NY USA</p>
-          <p>02489</p>
+          <p class="pad_add">Balrampur, Gamharia</p>
+          <p>Jamshedpur, Jharkhand</p>
+          <p>832108</p>
           <p class="undr_line1"></p>
           <h5 class="cont_add1">TELEPHONES</h5>
-          <p class="pad_add">Restaurant: 1 (800) 555-5555</p>
-          <p> Fax: 1 (800) 555-5556</p>
+          <p class="pad_add">Restaurant : 6566757677</p>
+          <p> Fax : 7467658908</p>
           <p class="undr_line1"></p>
           <h5 class="cont_add1">LET’S STAY IN TOUCH</h5>
           <p class="pad_add">Lorem ipsum dotlor
@@ -274,6 +287,11 @@
                 <input type="text" class="form-control width_c3" placeholder="Email *" name="email">
               </div>
             </div>
+             <div class="form-group">
+              <div class="valid">
+                <input type="number" class="form-control width_c3" placeholder="Phone no *" name="phone">
+              </div>
+            </div>
             <div class="form-group">
               <div class="valid">
                 <input type="text" class="form-control width_c3" placeholder="Subject *" name="sub">
@@ -293,7 +311,6 @@
     </div>
   </div>
 
-  <!--start important link section-->
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12 col-md-12 col-xs-12 text_center1 nopadd video_sec1">
@@ -364,7 +381,7 @@
       </div>
     </div>
   </div>
-  <!--end important link section-->
+  
   <!-- Footer -->
   <footer class="text-center footr">
     <a class="up-arrow" href="#myPage" data-toggle="tooltip" title="TO TOP">

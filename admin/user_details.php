@@ -27,95 +27,25 @@ if (!$run) {
     <link rel="stylesheet" type="text/css" href="css/validationEngine.jquery.css">
     <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
     <script src="ckeditor/_samples/sample.js" type="text/javascript"></script>
-<!-- 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#dashboard").validationEngine();
 
-            $(document).on("click", ".editBtn", function () {
-                var userId = $(this).data("id");
-                console.log("Fetching data for user ID:", userId);
-                $.ajax({
-                    url: "get_user.php",
-                    type: "POST",
-                    data: { id: userId },
-                    dataType: "json",
-                    success: function (response) {
-                        console.log("Response from get_user.php:", response);
-                        if (response && response.name !== undefined) {
-                            $("#userId").val(userId);
-                            $("#userName").val(response.name || '');
-                            $("#userEmail").val(response.email || '');
-                            $("#state").val(response.state || '');
-                            get_city_by_state(response.state || '', response.city || '');
-                            $("#address").val(response.address || '');
-                            $("#editUserModal").modal("show");
-                        } else {
-                            alert("No user data found or invalid response.");
-                            console.log("Invalid response structure:", response);
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                        console.error("AJAX error:", status, error, xhr.responseText);
-                        alert("Error fetching user data. Check console for details.");
-                    }
-                });
-            });
-
-            $("#editUserForm").on("submit", function (e) {
-                e.preventDefault();
-                var userId = $("#userId").val();
-                var userName = $("#userName").val();
-                var userEmail = $("#userEmail").val();
-                var state = $("#state").val();
-                var city = $("#city").val();
-                var address = $("#address").val();
-                console.log("Submitting data:", { id: userId, name: userName, email: userEmail, state: state, city: city, address: address }); // Debug
-                $.ajax({
-                    url: "update_user.php",
-                    type: "POST",
-                    data: { id: userId, name: userName, email: userEmail, state: state, city: city, address: address },
-                    dataType: "json",
-                    success: function (response) {
-                        console.log("Update response:", response);
-                        if (response.status === "success") {
-                            alert("User updated successfully!");
-                            $("#editUserModal").modal("hide");
-                            location.reload();
-                        } else {
-                            alert("Error updating user: " + (response.message || "Unknown error"));
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                        console.error("Update AJAX error:", status, error, xhr.responseText);
-                        alert("Error updating user. Check console for details.");
-                    }
-                });
-            });
-
-            $("#userName").on("keypress", function (e) {
-                if ($(this).val().length === 0 && e.which === 32) {
-                    return false;
-                }
-            });
-        });
-
-        function get_city_by_state(temp) {
-            const state = temp;
-            const value = 'state=' + state;
-            $.ajax({
-                url: "city_ajax.php",
-                type: "POST",
-                data: value,
-                success: function (data) {
-                    $("#city").html(data);
-                },
-                error: function (jqXHR, textstatus, errorThrown) {
-                    console.log(textstatus, errorThrown);
-                }
-            })
+<script>
+function get_user_details_by_user_id(userId) {
+    $("#editUserModalBody").html("<p class='text-center text-muted'>Loading...</p>");
+    $.ajax({
+        url: "user_edit_ajax.php",
+        type: "POST",
+        data: { user: userId },
+        success: function (data) {
+            $("#editUserModalBody").html(data);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(textStatus, errorThrown);
+            $("#editUserModalBody").html("<p class='text-danger text-center'>Error loading data!</p>");
         }
-    </script> -->
+    });
+}
+</script>
+
 </head>
 
 <body style="background: #f8f8f8">
@@ -184,24 +114,17 @@ if (!$run) {
                                             <?php echo htmlspecialchars($fetch_user['address'] ?: 'N/A'); ?>
                                         </td>
                                         <td>
-                                            <a href="javascript:void(0)" title="Edit User" class="editBtn"
-                                                data-bs-toggle="modal" data-bs-target="#editUserModal"
-                                                data-id="<?php echo htmlspecialchars($fetch_user['id']); ?>">
-                                                <img src="images/edit_user.png" alt="Edit">
-                                            </a>&nbsp;
+                                             <a href="javascript:void(0)" title="Edit User"
+                   data-bs-toggle="modal" data-bs-target="#editUserModal"
+                   onclick="get_user_details_by_user_id('<?php echo $fetch_user['id']; ?>')">
+                   <img src="images/edit_user.png" alt="Edit">
+                </a>
                                             <a href="javascript:void(0)"
                                                 onclick="return confirm('Are you sure you want to delete this user?')"
                                                 title="Delete" class="deleteBtn"
                                                 data-id="<?php echo htmlspecialchars($fetch_user['id']); ?>">
                                                 <img src="images/form_delete.png" alt="Delete">
                                             </a>
-                                            <div class="notification">
-                                             <a href="javascript:void(0)"
-                                                title="Notification">
-                                                <img src="images/bell(1).png" alt="Delete">
-                                                <span class="badge">3</span>
-                                            </a>
-                                            </div>
                                         </td>
                                     </tr>
                                     <?php
@@ -219,59 +142,19 @@ if (!$run) {
     </div>
 
     <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content card-style">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="editUserForm">
-                        <input type="hidden" name="id" id="userId">
-                        <div class="mb-3">
-                            <label class="form-label">Name</label>
-                            <input type="text" name="name" id="userName" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Email</label>
-                            <input type="email" name="email" id="userEmail" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">State</label>
-                            <select class="form-control" id="state" name="state"
-                                onchange="get_city_by_state(this.value)" required>
-                                <option value="">Select State</option>
-                                <?php
-                                $select = "SELECT * FROM state WHERE 1";
-                                $run_state = mysqli_query($connect, $select);
-                                while ($fetch_state = mysqli_fetch_array($run_state)) {
-                                ?>
-                                <option value="<?php echo htmlspecialchars($fetch_state['id']); ?>">
-                                    <?php echo htmlspecialchars($fetch_state['state_name']); ?>
-                                </option>
-                                <?php
-                                }
-                                ?>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">City</label>
-                            <select class="form-control" id="city" name="city" required>
-                                <option value="">Select City</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Address</label>
-                            <input type="text" name="address" id="address" class="form-control" placeholder="Address"
-                                required>
-                        </div>
-                        <button type="reset" class="btn btn-secondary">Reset</button>
-                        <button type="submit" class="btn btn-primary">Update</button>
-                    </form>
-                </div>
-            </div>
-        </div>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content card-style">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="editUserModalBody">
+        <p class="text-center text-muted">Select a user to edit.</p>
+      </div>
     </div>
+  </div>
+</div>
+
 </body>
 
 </html>
