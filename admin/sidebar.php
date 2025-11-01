@@ -61,13 +61,16 @@
 	</li>
 	<li>
 		<a href="#"
-			class="nav-top-item <?php echo $url=='add_galleries.php' || $url=='list_gallery.php' || $url=='edit_galleries.php' || $url=='edit_gallery.php' || $url=='add_gallery_photo.php' || $url=='list_gallery_photo.php' ?'current':''; ?>">
+			class="nav-top-item <?php echo $url=='add_galleries.php' || $url=='list_gallery.php' || $url=='edit_galleries.php' || $url=='edit_gallery.php' 
+				|| $url=='add_gallery_photo.php' || $url=='list_gallery_photo.php' || $url=='add_banner.php' ?'current':''; ?>">
 			<div>Gallery</div>
 			<div style="float:left;margin-top:-22px;"></div>
 		</a>
 		<ul>
 			<li><a href="add_gallery_photo.php" class="<?php echo $url=='add_gallery_photo.php'?'current':'';?>">Add
 					Photo</a></li>
+			<li><a href="add_banner.php" class="<?php echo $url=='add_banner.php'?'current':'';?>">Add
+					Banner Photos</a></li>
 			<li><a href="list_gallery_photo.php" class="<?php echo $url=='list_gallery_photo.php'?'current':'';?>">List
 					Photos</a></li>
 		</ul>

@@ -1,10 +1,10 @@
 <?php
-include("config.php");
-$record = "SELECT * FROM user WHERE 1";
-$run = mysqli_query($connect, $record);
-if (!$run) {
-    die("Database query failed: " . mysqli_error($connect)); 
-}
+    include("config.php");
+    $record = "SELECT * FROM user WHERE 1";
+    $run = mysqli_query($connect, $record);
+    if (!$run) {
+        die("Database query failed: " . mysqli_error($connect)); 
+    }
 ?>
 
 <!DOCTYPE html>
@@ -28,24 +28,32 @@ if (!$run) {
     <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
     <script src="ckeditor/_samples/sample.js" type="text/javascript"></script>
 
-<script>
-function get_user_details_by_user_id(userId) {
-    $("#editUserModalBody").html("<p class='text-center text-muted'>Loading...</p>");
+    <script>
+       function get_user_details_by_user_id(userId) {
+    // Show the Bootstrap modal
+    const modal = new bootstrap.Modal(document.getElementById('editUserModal'));
+    modal.show();
+
+    // Show a loading message while fetching
+    $("#editUserModalBody").html("<p class='text-center text-muted'>Loading user data...</p>");
+
+    // AJAX request to fetch user details
     $.ajax({
-        url: "user_edit_ajax.php",
+        url: "user_get_data.php", // must match your PHP filename
         type: "POST",
-        data: { user: userId },
+        data: { user_id: userId }, // correct POST key
         success: function (data) {
+            // Inject returned HTML form into modal body
             $("#editUserModalBody").html(data);
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.log(textStatus, errorThrown);
+            console.error("AJAX Error:", textStatus, errorThrown);
             $("#editUserModalBody").html("<p class='text-danger text-center'>Error loading data!</p>");
         }
     });
 }
-</script>
 
+    </script>
 </head>
 
 <body style="background: #f8f8f8">
@@ -71,6 +79,7 @@ function get_user_details_by_user_id(userId) {
                                         <th class="user_detail">Profile</th>
                                         <th class="user_detail">Name</th>
                                         <th class="user_detail">Email</th>
+                                        <th class="user_detail">Phone No</th>
                                         <th class="user_detail">Dob</th>
                                         <th class="user_detail">State</th>
                                         <th class="user_detail">City</th>
@@ -92,37 +101,40 @@ function get_user_details_by_user_id(userId) {
                                             <?php echo $i; ?>
                                         </td>
                                         <td>
-                                            <img src="/burgatory/profile_image/<?php echo htmlspecialchars($fetch_user['profile']); ?>"
+                                            <img src="/burgatory/profile_image/<?php echo $fetch_user['profile']; ?>"
                                                 alt="Profile" class="profile_img">
                                         </td>
                                         <td>
-                                            <?php echo htmlspecialchars($fetch_user['name'] ?: 'N/A'); ?>
+                                            <?php echo $fetch_user['name'];?>
                                         </td>
                                         <td>
-                                            <?php echo htmlspecialchars($fetch_user['email'] ?: 'N/A'); ?>
+                                            <?php echo $fetch_user['email'];?>
                                         </td>
                                         <td>
-                                            <?php echo htmlspecialchars($fetch_user['dob'] ?: 'N/A'); ?>
+                                            <?php echo $fetch_user['phone_no'];?>
                                         </td>
                                         <td>
-                                            <?php echo htmlspecialchars($state_name); ?>
+                                            <?php echo $fetch_user['dob'];?>
                                         </td>
                                         <td>
-                                            <?php echo htmlspecialchars($city_name); ?>
+                                            <?php echo $state_name;?>
                                         </td>
                                         <td>
-                                            <?php echo htmlspecialchars($fetch_user['address'] ?: 'N/A'); ?>
+                                            <?php echo $city_name; ?>
                                         </td>
                                         <td>
-                                             <a href="javascript:void(0)" title="Edit User"
-                   data-bs-toggle="modal" data-bs-target="#editUserModal"
-                   onclick="get_user_details_by_user_id('<?php echo $fetch_user['id']; ?>')">
-                   <img src="images/edit_user.png" alt="Edit">
-                </a>
+                                            <?php echo $fetch_user['address'];?>
+                                        </td>
+                                        <td>
+                                           <a href="javascript:void(0)" title="Edit User"
+   onclick="get_user_details_by_user_id(<?php echo $row['id']; ?>)">
+   <img src="images/edit_user.png" alt="Edit">
+</a>
+
                                             <a href="javascript:void(0)"
                                                 onclick="return confirm('Are you sure you want to delete this user?')"
                                                 title="Delete" class="deleteBtn"
-                                                data-id="<?php echo htmlspecialchars($fetch_user['id']); ?>">
+                                                data-id="<?php echo $fetch_user['id'];?>">
                                                 <img src="images/form_delete.png" alt="Delete">
                                             </a>
                                         </td>
@@ -140,20 +152,71 @@ function get_user_details_by_user_id(userId) {
             <div class="clear"></div>
         </div>
     </div>
-
     <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content card-style">
-      <div class="modal-header">
-        <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body" id="editUserModalBody">
-        <p class="text-center text-muted">Select a user to edit.</p>
-      </div>
+        <div class="modal-dialog modal-dialog-centered modal-md">
+            <div class="modal-content card-style">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <form method="POST" action="">
+                        <!-- <input type="hidden" name="id" value=""> -->
+
+                        <div class="mb-3">
+                            <label class="form-label">Name</label>
+                            <input type="text" name="name" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" name="email" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Phone No</label>
+                            <input type="number" name="phone" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Date of Birth</label>
+                            <input type="date" name="dob" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">State</label>
+                            <select class="form-control" id="state" name="state" required>
+                                <option value="">Select State</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">City</label>
+                            <select class="form-control" id="city" name="city" required>
+                                <option value="">Select City</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Address</label>
+                            <input type="text" name="address" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Zip Code</label>
+                            <input type="number" name="zipcode" class="form-control" required>
+                        </div>
+
+                        <div class="d-flex justify-content-end">
+                            <button type="reset" class="btn btn-secondary me-2">Reset</button>
+                            <button type="submit" name="update_user" class="btn btn-primary">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 
 </body>
 
@@ -260,6 +323,7 @@ function get_user_details_by_user_id(userId) {
     .btn-secondary {
         border-radius: 5px;
     }
+
     /* #main-header {
 		display: flex;
 		justify-content: space-between;
@@ -269,25 +333,25 @@ function get_user_details_by_user_id(userId) {
 		gap: 30px;
 	} */
 
-	.notification {
-		position: relative;
-		cursor: pointer;
-	}
+    .notification {
+        position: relative;
+        cursor: pointer;
+    }
 
-	.notification img {
-		width: 30px;
-		height: 30px;
-	}
+    .notification img {
+        width: 30px;
+        height: 30px;
+    }
 
-	.badge {
-		position: absolute;
-		top: -5px;
-		right: -5px;
-		background: red;
-		color: white;
-		border-radius: 50%;
-		padding: 2px 6px;
-		font-size: 12px;
-		margin: 4px 0px 0px 10px;
-	}
+    .badge {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background: red;
+        color: white;
+        border-radius: 50%;
+        padding: 2px 6px;
+        font-size: 12px;
+        margin: 4px 0px 0px 10px;
+    }
 </style>

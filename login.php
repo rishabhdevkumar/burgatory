@@ -1,76 +1,74 @@
 <?php
-include("config.php");
-$user_id = $_SESSION['user_id'];
-$change_profile = "SELECT * FROM `user` WHERE id='".$user_id."'";
-$run_profile = mysqli_query($connect,$change_profile);
-$fetch_profile = mysqli_fetch_array($run_profile);
+  include("config.php");
+  $user_id = $_SESSION['user_id'];
+  $change_profile = "SELECT * FROM `user` WHERE id='".$user_id."'";
+  $run_profile = mysqli_query($connect,$change_profile);
+  $fetch_profile = mysqli_fetch_array($run_profile);
 
-
-
-if(isset($_POST['save']))
-{
-    $Name = $_POST['name'];
-    $Email = $_POST['email'];
-    $Phone = $_POST['phone'];
-    $Password = md5($_POST['password']);
-    $Conf_password = $_POST['confirm_password'];
-    $Address = $_POST['address'];
-    $Dob = $_POST['dob'];
-    $Gender = $_POST['gender'];
-    $State = $_POST['state'];
-    $City = $_POST['city'];
-    $code = $_POST['Zipcode'];
-
-    if(!empty($_FILES['img']['name'])){
-        $profile = $_FILES['img']['name'];
-        $tmp_name = $_FILES['img']['tmp_name'];
-        move_uploaded_file($tmp_name, 'profile_image/'.$profile);
-    } else {
-        $profile = "my_profile.png";  
-        copy("image/my_profile.png", "profile_image/".$profile);
-    }
-
-    $conf_email = "SELECT * FROM  user WHERE email = '".$Email."'";
-    $run_email  =  mysqli_query($connect, $conf_email);
-    $num_rows   =  mysqli_num_rows($run_email);
-
-    if($num_rows){
-        echo '<script>alert("This Email Already Exists")</script>';
-    } else {
-        $add = "INSERT INTO user(name,email,phone_no,password,address,dob,gender,state,city,zip_code,profile)
-        VALUES('".$Name."','".$Email."','".$Phone."','".$Password."','".$Address."','".$Dob."','".$Gender."','".$State."','".$City."','".$code."','".$profile."')";
-        
-        $run = mysqli_query($connect ,$add);
-        if($run){
-            echo '<script>alert("Added Successfully")</script>';
-        } else {
-            echo '<script>alert("Something Went Wrong")</script>';
-        }
-    }
- }
-
-// ------------- php code of authentication ----------------
-  if(isset($_POST['save1']))
+  if(isset($_POST['save']))
   {
-    $email = mysqli_real_escape_string($connect, $_POST['email']);
-    $password = md5(mysqli_real_escape_string($connect, $_POST['password']));
-    $authenticate = "SELECT * FROM user WHERE email = '".$email."' AND password = '".$password."'";
-    $run_rec = mysqli_query($connect, $authenticate);
-    $fetch = mysqli_fetch_array($run_rec);
-    $num = mysqli_num_rows($run_rec);
-    if($num>0)
-    {
-      $_SESSION['user_id'] = $fetch['id'];
-      header('Location:index.php');
-    }else{
-      echo '<script>alert("something wrong")</script>';
-    }
+      $Name = $_POST['name'];
+      $Email = $_POST['email'];
+      $Phone = $_POST['phone'];
+      $Password = md5($_POST['password']);
+      $Conf_password = $_POST['confirm_password'];
+      $Address = $_POST['address'];
+      $Dob = $_POST['dob'];
+      $Gender = $_POST['gender'];
+      $State = $_POST['state'];
+      $City = $_POST['city'];
+      $code = $_POST['Zipcode'];
 
-    $id = $_SESSION['user_id'];
-    $select = "SELECT * FROM user WHERE id = '".$id."'";
-    $run = mysqli_query($connect, $select);
-    $fetch = mysqli_fetch_array($run);
+      if(!empty($_FILES['img']['name'])){
+          $profile = $_FILES['img']['name'];
+          $tmp_name = $_FILES['img']['tmp_name'];
+          move_uploaded_file($tmp_name, 'profile_image/'.$profile);
+      } else {
+          $profile = "my_profile.png";  
+          copy("image/my_profile.png", "profile_image/".$profile);
+      }
+
+      $conf_email = "SELECT * FROM  user WHERE email = '".$Email."'";
+      $run_email  =  mysqli_query($connect, $conf_email);
+      $num_rows   =  mysqli_num_rows($run_email);
+
+      if($num_rows){
+          echo '<script>alert("This Email Already Exists")</script>';
+      } else {
+          $add = "INSERT INTO user(name,email,phone_no,password,address,dob,gender,state,city,zip_code,profile)
+          VALUES('".$Name."','".$Email."','".$Phone."','".$Password."','".$Address."','".$Dob."','".$Gender."','".$State."','".$City."','".$code."','".$profile."')";
+          
+          $run = mysqli_query($connect ,$add);
+          if($run){
+              header("Location: index.php");
+          } else {
+              echo '<script>alert("Something Went Wrong")</script>';
+          }
+      }
   }
+
+  // ------------- php code of authentication ----------------
+    if(isset($_POST['save1']))
+    {
+      $email = mysqli_real_escape_string($connect, $_POST['email']);
+      $password = md5(mysqli_real_escape_string($connect, $_POST['password']));
+      $authenticate = "SELECT * FROM user WHERE email = '".$email."' AND password = '".$password."'";
+      $run_rec = mysqli_query($connect, $authenticate);
+      $fetch = mysqli_fetch_array($run_rec);
+      $num = mysqli_num_rows($run_rec);
+      if($num>0)
+      {
+        $_SESSION['user_id'] = $fetch['id'];
+        header('Location:index.php');
+      }else{
+        echo '<script>alert("something wrong")</script>';
+      }
+
+      $id = $_SESSION['user_id'];
+      $select = "SELECT * FROM user WHERE id = '".$id."'";
+      $run = mysqli_query($connect, $select);
+      $fetch = mysqli_fetch_array($run);
+    }
 ?>
 
 <!DOCTYPE html>
@@ -90,7 +88,6 @@ if(isset($_POST['save']))
     $(document).ready(function () {
 
       var validator = $("#myform1").validate({
-
         rules: {
 
           email: {
@@ -141,7 +138,6 @@ if(isset($_POST['save']))
 
       var validator = $("#myform2").validate({
 
-
         rules: {
 
           email2: {
@@ -172,7 +168,6 @@ if(isset($_POST['save']))
           $(element).parents(".valid").addClass("has-success").removeClass("has-error");
         }
       });
-
 
       var validator = $("#myform").validate({
 
@@ -466,7 +461,6 @@ if(isset($_POST['save']))
                 </div>
               </div>
             </form>
-            <!-- Forgot Password Modal -->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="forgotPasswordLabel"
               aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered" role="document">
@@ -498,7 +492,6 @@ if(isset($_POST['save']))
             </div>
           </div>
         </div>
-        <!--start register section-->
         <div class="col-md-6 col-sm-12 col-xs-12 regis_mar">
           <div class="col-md-12 col-sm-12  col-xs-12 border_st">
             <div class="col-md-12 col-sm-12 col-xs-12">
@@ -615,7 +608,6 @@ if(isset($_POST['save']))
         <div class="modal fade" id="otpModal" tabindex="-1" aria-labelledby="otpModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content p-3">
-              <!------ Modal Header ------>
               <div class="modal-header d-flex justify-content-between align-items-center">
                 <button type="button" class="close text-white mr-2" data-dismiss="modal" aria-label="Close"
                   style="opacity:1;">

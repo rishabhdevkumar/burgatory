@@ -1,24 +1,45 @@
 <?php
   include("config.php");
-  if(isset($_POST['submit']))
+  if(isset($_POST['submit']) && isset($_POST['submit'])!='')
   {
-    $Name = $_POST['name'];
-    $Email = $_POST['email'];
-    $Phone = $_POST['phone'];
-    $Subject = $_POST['sub'];
-    $Enquire = $_POST['enq'];
+    $name = trim($_POST['name']);
+    $email = trim($_POST['email']);
+    $subject = trim($_POST['sub']);
+    $enquiry = trim($_POST['enq']);
+    $phone = trim($_POST['phone']);
 
-    echo $add_enquiry = "INSERT INTO enquiry (name,email,subject,enquiry) VALUES('".$Name."','".$Email."','".$Subject."','".$Enquire."')";
-    $run  =  mysqli_query($connect, $add_enquiry);
-    $num   =  mysqli_num_rows($run);
-    if($num_rows)
-      {
-        header('location: contact_us.php');
-      }else
-      {
-        echo '<script>alert("Something Went Wrong")</script>';
-      }
+    $add_enquiry = "INSERT INTO enquiry(name,email,subject,enquiry,phone)
+    VALUES('".$name."','".$email."','".$subject."','".$enquiry."','".$phone."')";
+    $run_enquiry = mysqli_query($connect ,$add_enquiry);
+    if($run_enquiry){
+     header('location: contact_us.php');
+    } else {
+      echo '<script>alert("Enquiry Added Error")</script>';
     }
+
+    $mail_body = "Dear" .$name.",<br/><br/>Congratulations! We got your enquiry details.
+    we will processing It as soon As Possible .... Thank You...
+    <br/><br/> Following your enquiry Details
+    <br/><br/><b>Name:</b>".$name."<br/><b><br/>Email:</b>".$email.";
+    <br/><br/><b>Subject:</b>".$subject."<br/><b><br/>Enquiry Message:</b>".$enquiry."<br/><br/>Regards<br/>Administrator";
+
+    $mail_body1 = "Dear" .$name.",<br/><br/>Congratulations! We got your enquiry details.
+    we will processing It as soon As Possible .... Thank You...
+    <br/><br/> Following your enquiry Details
+    <br/><br/><b>Name:</b>".$name."<br/><b><br/>Email:</b>".$email.";
+    <br/><br/><b>Subject:</b>".$subject."<br/><b><br/>Enquiry Message:</b>".$enquiry."<br/><br/>Regards<br/>resturent name";
+
+    $Select_mail = "SELECT * FROM `admin_master` WHERE username = 'admin'";
+    $run  =  mysqli_query($connect, $Select_mail);
+    $admin_details  =  mysqli_fetch_array($run);
+
+    mail($email, '', 'enquiry', $mail_body1);
+    mail($admin_details['email_address'], '', 'enquiry', $mail_body);
+    echo '<script> alert("your enquiry send successfully", "you clicked the button!"," success")</script>';
+    }else{
+      echo '<script> swal("something went wrong")</script>';
+    }
+   
 ?>
 
 <!DOCTYPE html>
