@@ -105,7 +105,6 @@
 		</a>
 		<ul>
 			<li><a href="user_details.php" class="<?php echo $url=='user_details.php'?'current':'';?>">Users Details</a></li>
-			<li><a href="notifications.php" class="<?php echo $url=='notifications.php'?'current':'';?>">Notifications</a></li>
 			<li><a href="logout.php" class="<?php echo $url=='logout.php'?'current':'';?>">Logout</a></li>
 		</ul>
 	</li>

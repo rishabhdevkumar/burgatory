@@ -1,8 +1,15 @@
 <?php
     include("config.php");
-    $id = $_POST['user_id'];
-    $_SESSION['abc']=$_POST['user_id'];
-    $select_rec = "SELECT * FROM `user` WHERE id = '".$id."'";
+    $state_id = $_POST['state'];
+    $city = "SELECT * FROM `city` WHERE state_id = '".$state_id."'";
+    $run = mysqli_query($connect, $city);
+
+
+    $abc="SELECT * FROM state WHERE id='".$state_id."'";
+    $run_abc=mysqli_query($connect,$abc);
+    $fetch_abc=mysqli_fetch_array($run_abc);
+
+    $select_rec = "SELECT * FROM `user` WHERE id = '".$_SESSION['abc']."'";
     $run_rec = mysqli_query($connect,$select_rec);
     $fetch_rec = mysqli_fetch_array($run_rec);
     $name = $fetch_rec['name'];
@@ -14,7 +21,11 @@
     $address = $fetch_rec['address'];
     $Zipcode = $fetch_rec['zip_code'];
 
-  echo '
+    /*$select = "SELECT * FROM `user` WHERE 1";
+    $run = mysqli_query($connect, $select);
+    $fetch = mysqli_fetch_array($run){}*/
+
+   echo '
   <div class="modal-dialog modal-dialog-centered modal-md">
     <div class="modal-content card-style">
       <div class="modal-header">
@@ -48,8 +59,16 @@
               $run_states = mysqli_query($connect, $select_states);
               while ($fetch_states = mysqli_fetch_array($run_states)) 
               {
-                 $S = ($state_id == $fetch_states["id"]) ? "selected" : "";
-                echo '<option value="'.$fetch_states["id"].'" '.$S.' onclick="city_by_state('.$id.');">'.$fetch_states["state_name"].'</option>';
+                /*$S = ($state_id == $fetch_states['id']) ? 'selected' : '';*/
+                if($fetch_abc['id']==$fetch_states['id'])
+                {
+                  $S="selected";
+                }
+                else
+                {
+                  $S="";
+                }
+                echo '<option value="'.$fetch_states['id'].'" '.$S.' onclick="city_by_state('.$fetch_states['id'].')">'.$fetch_states["state_name"].'</option>';
               }
               echo '
             </select>
@@ -58,13 +77,11 @@
             <label class="form-label">City</label>
             <select class="form-control" id="city" name="city1" required>
               <option value="">Select City</option>';
-              $select_cities = "SELECT * FROM `city` WHERE 1";
-              $run_cities = mysqli_query($connect, $select_cities);
-              while($fetch_cities = mysqli_fetch_array($run_cities)) 
-              {
-                $C = ($city_id == $fetch_cities["id"]) ? "selected" : "";
-                echo '<option value="'.$fetch_cities["id"].'" '.$C.'>'.$fetch_cities["city_name"].'</option>';
-              }
+               while($fetch_city = mysqli_fetch_array($run))
+            {
+                echo '<option value='.$fetch_city['id'].'>
+                '.$fetch_city['city_name'].'</option>';
+            }
               echo '
             </select>
           </div>
@@ -78,7 +95,7 @@
           </div>
           <div class="d-flex justify-content-end">
             <button type="reset" class="btn btn-secondary me-2">Reset</button>
-            <button type="submit" name="update_user1" value="submit" onclick="edit_user('.$id.')" class="btn btn-primary">Update</button>
+            <button type="submit" name="update_user1" class="btn btn-primary">Update</button>
           </div>
         </form>
       </div>

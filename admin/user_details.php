@@ -29,30 +29,58 @@
     <script src="ckeditor/_samples/sample.js" type="text/javascript"></script>
 
     <script>
-       function get_user_details_by_user_id(userId) {
-    // Show the Bootstrap modal
-    const modal = new bootstrap.Modal(document.getElementById('editUserModal'));
-    modal.show();
+        function show_data(us_id) {
+        $.ajax({
+            url: "user_get_data.php",
+            type: "POST",
+            data: { user_id: us_id }, 
+            success: function (data) {
+            $("#editUserModal").html(data);
+            $("#editUserModal").modal("show"); 
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+            console.log(textStatus, errorThrown);
+            },
+        });
+        }
 
-    // Show a loading message while fetching
-    $("#editUserModalBody").html("<p class='text-center text-muted'>Loading user data...</p>");
-
-    // AJAX request to fetch user details
+     function city_by_state(state_id) {
     $.ajax({
-        url: "user_get_data.php", // must match your PHP filename
+        url: "user_city_ajax.php",
         type: "POST",
-        data: { user_id: userId }, // correct POST key
+        data: { state: state_id },
         success: function (data) {
-            // Inject returned HTML form into modal body
-            $("#editUserModalBody").html(data);
+             $("#editUserModal").html(data);
+            $("#editUserModal").modal("show");  // ONLY UPDATE CITY
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.error("AJAX Error:", textStatus, errorThrown);
-            $("#editUserModalBody").html("<p class='text-danger text-center'>Error loading data!</p>");
+        error: function (jqXHR, textstatus, errorThrown) {
+            console.log(textstatus, errorThrown);
         }
     });
 }
 
+
+     function edit_user(temp)
+     {
+        const id = temp;
+        const values = $("form").serialize() + '&id=' +id;
+      $.ajax({
+        url: "user_edit.php",
+        type: "POST",
+        data: values,
+        success: function (data) {
+            if(data =='Email Already Exists')
+            {
+                alert('Email Already Exists');
+            }else{
+                $("#editUserModal").html(data);
+            }
+        },
+        error: function (jqXHR, textstatus, errorThrown) {
+          console.log(textstatus, errorThrown);
+        }
+      })
+    }
     </script>
 </head>
 
@@ -83,6 +111,7 @@
                                         <th class="user_detail">Dob</th>
                                         <th class="user_detail">State</th>
                                         <th class="user_detail">City</th>
+                                        <th class="user_detail">Pincode</th>
                                         <th class="user_detail">Address</th>
                                         <th class="user_detail">Action</th>
                                     </tr>
@@ -123,14 +152,16 @@
                                             <?php echo $city_name; ?>
                                         </td>
                                         <td>
+                                            <?php echo $fetch_user['zip_code'];?>
+                                        </td>
+                                            <td>
                                             <?php echo $fetch_user['address'];?>
                                         </td>
                                         <td>
                                            <a href="javascript:void(0)" title="Edit User"
-   onclick="get_user_details_by_user_id(<?php echo $row['id']; ?>)">
-   <img src="images/edit_user.png" alt="Edit">
-</a>
-
+                                             onclick="show_data(<?php echo $fetch_user['id'];?>)">
+                                             <img src="images/edit_user.png" alt="Edit">
+                                            </a>
                                             <a href="javascript:void(0)"
                                                 onclick="return confirm('Are you sure you want to delete this user?')"
                                                 title="Delete" class="deleteBtn"
@@ -152,8 +183,8 @@
             <div class="clear"></div>
         </div>
     </div>
-    <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-md">
+   <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+        <!-- <div class="modal-dialog modal-dialog-centered modal-md">
             <div class="modal-content card-style">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
@@ -162,52 +193,43 @@
 
                 <div class="modal-body">
                     <form method="POST" action="">
-                        <!-- <input type="hidden" name="id" value=""> -->
-
                         <div class="mb-3">
                             <label class="form-label">Name</label>
-                            <input type="text" name="name" class="form-control" required>
+                            <input type="text" name="name" class="form-control" placeholder="Enter new name" required>
                         </div>
-
                         <div class="mb-3">
                             <label class="form-label">Email</label>
-                            <input type="email" name="email" class="form-control" required>
+                            <input type="email" name="email" class="form-control" placeholder="Enter new email" required>
                         </div>
-
                         <div class="mb-3">
                             <label class="form-label">Phone No</label>
-                            <input type="number" name="phone" class="form-control" required>
+                            <input type="number" name="phone" class="form-control" placeholder="Enter new phone no" required>
                         </div>
-
                         <div class="mb-3">
                             <label class="form-label">Date of Birth</label>
                             <input type="date" name="dob" class="form-control" required>
                         </div>
-
                         <div class="mb-3">
                             <label class="form-label">State</label>
                             <select class="form-control" id="state" name="state" required>
                                 <option value="">Select State</option>
                             </select>
                         </div>
-
                         <div class="mb-3">
                             <label class="form-label">City</label>
                             <select class="form-control" id="city" name="city" required>
                                 <option value="">Select City</option>
                             </select>
                         </div>
-
                         <div class="mb-3">
                             <label class="form-label">Address</label>
-                            <input type="text" name="address" class="form-control" required>
+                            <textarea type="text" name="address" class="form-control" 
+                             placeholder="Enter new address" style="resize: none" required></textarea>
                         </div>
-
                         <div class="mb-3">
-                            <label class="form-label">Zip Code</label>
-                            <input type="number" name="zipcode" class="form-control" required>
+                            <label class="form-label">Pip Code</label>
+                            <input type="number" name="zipcode" class="form-control" placeholder="Enter new pincode" required>
                         </div>
-
                         <div class="d-flex justify-content-end">
                             <button type="reset" class="btn btn-secondary me-2">Reset</button>
                             <button type="submit" name="update_user" class="btn btn-primary">Update</button>
@@ -215,7 +237,7 @@
                     </form>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 
 </body>
@@ -230,35 +252,29 @@
         display: flex;
         flex-direction: column;
     }
-
     .content-box-header {
         background: #210b44;
         color: #fff;
     }
-
     .content-box-header h3 {
         margin: 0;
         font-size: 20px;
     }
-
     .modal-header .btn-close {
         filter: invert(1) grayscale(100%) brightness(200%);
     }
-
     .user_table {
         width: 100%;
         border-collapse: collapse;
         font-size: 14px;
         border: 1px solid #cecece;
     }
-
     .user_table thead th {
         color: #333;
         border: 1px solid #cecece;
         background: #faf5f5;
         text-align: center;
     }
-
     .user_table td {
         color: #555;
         background: #fff;
@@ -267,82 +283,59 @@
         vertical-align: middle;
         padding: 8px;
     }
-
     .form-label {
         color: #000;
         font-weight: bold;
     }
-
     select.form-control {
         -webkit-appearance: auto;
     }
-
     .profile_img {
         width: 25px;
         height: 25px;
         border-radius: 50%;
         object-fit: cover;
     }
-
     .user_table tbody tr:nth-child(odd) td {
         background: #ffffff;
     }
-
     .user_table tbody tr:nth-child(even) td {
         background: #f9f9f9;
     }
-
     .card-style {
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         border: none;
     }
-
     .modal-header {
         background: #210b44;
         color: #fff;
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
     }
-
     .modal-body {
         background: #f8f8f8;
     }
-
     .btn-link {
         text-decoration: none;
     }
-
     .form-control {
         border-radius: 5px;
         border: 1px solid #cecece;
         padding: 8px;
     }
-
     .btn-primary,
     .btn-secondary {
         border-radius: 5px;
     }
-
-    /* #main-header {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		padding: 15px 20px;
-		position: relative;
-		gap: 30px;
-	} */
-
     .notification {
         position: relative;
         cursor: pointer;
     }
-
     .notification img {
         width: 30px;
         height: 30px;
     }
-
     .badge {
         position: absolute;
         top: -5px;

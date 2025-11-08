@@ -21,56 +21,7 @@
 	<script type="text/javascript" src="ckeditor/ckeditor.js"></script>
 	<script type="text/javascript" src="ckeditor/_samples/sample.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/validationEngine.jquery.css">
-	<!-- <script type="text/javascript">
-		$(document).ready(function () {
-			$("#dashboard").validationEngine()
-		});
-
-		function chk_valid_img(input) {
-			var file = document.getElementById("img").value;
-			if (file) {
-				var ext = file.match(/\.([^\.]+)$/)[1];
-				switch (ext) {
-					case 'jpg':
-					case 'jpeg':
-					case 'bmp':
-					case 'png':
-					case 'JPG':
-					case 'JPEG':
-					case 'BMP':
-					case 'PNG':
-						$("#preview1").html('<img src="images/loader.gif" alt="Uploading...."/>');
-						if (input.files && input.files[0]) {
-							var reader = new FileReader();
-							reader.onload = function (e) {
-
-								document.getElementById('blah').style.display = "block";
-								document.getElementById('preview1').style.display = "none";
-								$('#blah').attr('src', e.target.result);
-							}
-
-							reader.readAsDataURL(input.files[0]);
-						}
-						return true;
-						break;
-					default:
-						showError('Invalid file format');
-						document.getElementById("img").value = '';
-						return false;
-				}
-			}
-			else {
-				document.getElementById("menu_p").style.display = "block";
-				document.getElementById("image_p1").style.display = "block";
-			}
-		}
-		function checkname(e) {
-			if (document.getElementById("name").value.length == 0 && e.which == 32) {
-				return false;
-			}
-		}
-
-	</script> -->
+	
 	<script>
 		function check_page(temp) {
 			window.location = "add_banner.php?page_id=" + temp;
@@ -79,170 +30,229 @@
 </head>
 
 <body style="background: #f8f8f8ff">
-	<div id="body-wrapper" style="background: #f8f8f8ff">
-		<div id="sidebar">
-			<div id="sidebar-wrapper">
-				<?php require 'sidebar.php'; ?>
-			</div>
-		</div>
-		<div id="main-content">
-			<div class="content-box" style="box-shadow: 0px 0 12px 5px rgba(128, 122, 122, 0.29);width: 100%;">
-				<div class="content-box-header">
-					<h3>Add Banner Photo</h3>
-					<ul class="content-box-tabs">
-						<li><a href="add_banner.php" class="default-tab">Add Banner Photo</a></li>
-					</ul>
-					<div class="clear"></div>
-				</div>
-				<div class="content-box-content">
-					<div class="tab-content">
-						<form action="" id="dashboard" enctype="multipart/form-data" method="post">
-							<fieldset>
-                                <p>
-								<label>&nbsp;Select a Page&nbsp;<span style="color:red;">*</span></label>
-								<SELECT NAME="page" id="page" class="medium-input validate[required]"
-								onchange="check_page(this.value)">
-									<option value="">Select</option>
-									<?php
-										$page = "SELECT * FROM `pages` WHERE 1";
-										$run_page = mysqli_query($connect,$page);	
-										while($fetch_page = mysqli_fetch_array($run_page))
-										{
-									?>
-									<option value="<?php echo $fetch_page['id']?>"
-									<?php
-									  if(isset($_GET['page_id']) && $_GET['page_id']==$fetch_page['id'])
-										{echo "selected='selected'" ;}?>>
-										<?php echo $fetch_page['page_title']?>
-									</option>
-									<?php
-										}
-									?>
-								</SELECT>
-							</p>
-								<p id="image_p">
-									<label>&nbsp;Gallery Image&nbsp;<span style="color:red;">*</span></label>
-									<input class="text-input medium-input validate[required]" type="file" id="img"
-										name="img" onchange="chk_valid_img(this)" />
-								</p>
-								<div id="preview1">
+  <div id="body-wrapper" style="background: #f8f8f8ff">
+    <div id="sidebar">
+      <div id="sidebar-wrapper">
+        <?php require 'sidebar.php'; ?>
+      </div>
+    </div>
 
-								</div>
-								<p>
-									<img id="blah" src="#" alt="Preview" width="400" height="300"
-										style="display:none;" />
-								</p>
-								<!-- <p>
-									<label>&nbsp;Status&nbsp;<span style="color:red;">*</span></label>
-									<input class="validate[required]" type="radio" id="status" name="status" value="Y"
-										<?php if(isset($_POST['status']) && ($_POST['status']=="Y" ) )
-										{echo "checked='checked'" ;} ?>/>Active
-									<input class="validate[required]" type="radio" id="status" name="status" value="N"
-										<?php if(isset($_POST['status']) && ($_POST['status']=="N" ) )
-										{echo "checked='checked'" ;} ?>/>Inactive
-								</p> -->
-								<p>
-									<input class="button" type="submit" value="Add Photo" id="insert" name="insert" />
-								</p>
-							</fieldset>
-							<fieldset style="">
-								<p id="preview"></p>
-							</fieldset>
-							<div class="clear"></div>
-						</form>
-					</div>
-					<table>
-								<thead>
-									<tr>
-										<th>Sl.No</th>
-										<th>Page Name</th>
-										<th>Banner Image</th>
-										<th>Status</th>
-										<th>Action</th>
-									</tr>
-								</thead>
-								<tbody>
-									<?php
-										$check_page = "SELECT * FROM `pages` WHERE page_id='".$_GET['cat_id']."'";
-										$run_check = mysqli_query($connect,$check_page);
-										while($fetch = mysqli_fetch_array($run_check))
-										{
-									?>
-									<tr>
-										<td style=" vertical-align: top;">
-											<?php echo $fetch['name']?>
-										</td>
-										<td style="vertical-align: top;">
-											<div id="did_<?=$fetch['id']?>">
-												<?php if($fetch['status']=='Y') 
-													{ 
-												?>
-												<a href="javascript:void(0)" style="color:green;"
-													Title="Click here to deactivate"><img src="images/act.png"
-													width="24" height="24" border="0" alt=""
-													onclick="change_status('<?php echo $fetch['id'] ?>', 'yes' )">
-												</a>
-												<?php 
-													}
-													else 
-													{ 
-												?>
-												<a href="javascript:void(0)" style="color:red;"
-													Title="Click here to activate"><img src="images/deact.png"
-													width="24" height="24" border="0" alt=""
-													onclick="change_status('<?php echo $fetch['id'] ?>', 'no' )">
-												</a>
-												<?php
-													}	 
-												?>
-											</div>
-										</td>
-										<td>
-											<img src="../admin/menu_img/<?php echo $fetch['banner_image']?>" style=" height: 30px;width:40px">
-										</td>
-										<td style=" vertical-align: top;">
-											<a href="edit_categories.php?cat_id=<?php echo $fetch['id']?>"
-												title="Edit"><img src="images/pencil.png" alt="Edit" />
-											</a>&nbsp;
-											<a href="delete.php?cat_id=<?php echo $fetch['id']?> &page_id1=<?php echo $fetch['page_id']?>"
-												onclick="return confirm('Are you sure you want to delete this page?')"
-												title="Delete"><img src="images/cross.png" alt="Delete" />
-											</a> &nbsp;
-										</td>
-									</tr>
-									<?php
-										}
-									?>
-								</tbody>
-							</table>
-				</div>
-			</div>
-			<div class="clear"></div>
-		</div>
-	</div>
+    <div id="main-content">
+      <!-- Add Banner Photo Card -->
+      <div class="content-box" style="box-shadow: 0px 0 12px 5px rgba(128, 122, 122, 0.29);width: 100%;">
+        <div class="content-box-header">
+          <h3>Add Banner Photo</h3>
+          <ul class="content-box-tabs">
+            <li><a href="add_banner.php" class="default-tab">Add Banner Photo</a></li>
+          </ul>
+          <div class="clear"></div>
+        </div>
 
+        <div class="content-box-content">
+          <div class="tab-content">
+            <form action="" id="dashboard" enctype="multipart/form-data" method="post">
+              <fieldset>
+                <p>
+                  <label>&nbsp;Select a Page&nbsp;<span style="color:red;">*</span></label>
+                  <select name="page" id="page" class="medium-input validate[required]" onchange="check_page(this.value)">
+                    <option value="">Select</option>
+                    <?php
+                      $page = "SELECT * FROM `pages` WHERE 1";
+                      $run_page = mysqli_query($connect,$page);	
+                      while($fetch_page = mysqli_fetch_array($run_page)) {
+                    ?>
+                      <option value="<?php echo $fetch_page['id']?>" 
+                        <?php if(isset($_GET['page_id']) && $_GET['page_id']==$fetch_page['id']) {echo "selected='selected'";}?>>
+                        <?php echo $fetch_page['page_title']?>
+                      </option>
+                    <?php } ?>
+                  </select>
+                </p>
+
+                <p id="image_p">
+                  <label>&nbsp;Gallery Image&nbsp;<span style="color:red;">*</span></label>
+                  <input class="text-input medium-input validate[required]" type="file" id="img"
+                         name="img" onchange="chk_valid_img(this)" />
+                </p>
+
+                <p>
+                  <img id="blah" src="#" alt="Preview" width="400" height="300" style="display:none;" />
+                </p>
+
+                <p>
+                  <input class="button" type="submit" value="Add Photo" id="insert" name="insert" />
+                </p>
+              </fieldset>
+
+              <fieldset>
+                <p id="preview"></p>
+              </fieldset>
+
+              <div class="clear"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="clear"></div>
+    </div>
+	<div id="main-content">
+	
+<div class="content-box banner-list-card" style="box-shadow: 0px 0 12px 5px rgba(128, 122, 122, 0.29); width: 100%;">
+  <div class="content-box-header">
+    <h3>Banner List</h3>
+    <ul class="content-box-tabs">
+      <li><a href="#" class="default-tab">Show All Banners</a></li>
+    </ul>
+    <div class="clear"></div>
+  </div>
+
+  <div class="content-box-content">
+    <table class="styled-table">
+      <thead>
+        <tr>
+          <th>Sl.No</th>
+          <th>Page Name</th>
+          <th>Banner Image</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Home Page</td>
+          <td><img src="images/sample1.jpg" alt="Banner" height="40" width="60"></td>
+          <td><span class="status active">Active</span></td>
+          <td>
+            <a href="#" title="Edit"><img src="images/pencil.png" alt="Edit"></a>
+            &nbsp;
+            <a href="#" title="Delete"><img src="images/cross.png" alt="Delete"></a>
+          </td>
+        </tr>
+
+        <tr>
+          <td>2</td>
+          <td>About Us</td>
+          <td><img src="images/sample2.jpg" alt="Banner" height="40" width="60"></td>
+          <td><span class="status inactive">Inactive</span></td>
+          <td>
+            <a href="#" title="Edit"><img src="images/pencil.png" alt="Edit"></a>
+            &nbsp;
+            <a href="#" title="Delete"><img src="images/cross.png" alt="Delete"></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+					  </div>
+
+  </div>
 </body>
 
-</html>
 
+</html>
 <style>
-	table {
+.banner-list-card {
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 0 12px 5px rgba(128, 122, 122, 0.29);
+  margin-top: -41%;
+  padding: 0;
+  overflow: hidden;
+}
+
+.banner-list-card .content-box-header {
+  background: #f0f0f0;
+  padding: 2px 5px;
+  border-bottom: 1px solid #ddd;
+  h3 {
+    font-weight: 800;
+  }
+}
+
+.styled-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 15px;
-  font-size: 14px;
-  background: #fff;
+  margin-top: 10px;
 }
 
-thead {
-  background: #2c3e50;
-  color: #fff;
-}
-
-thead th {
-  padding: 10px;
+.styled-table th,
+.styled-table td {
   text-align: left;
-  font-weight: bold;
+  padding: 12px 15px;
+  border-bottom: 1px solid #ddd;
 }
 
+.styled-table th {
+  font-weight: 600;
+  color: #000;
+}
+
+.status {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.status.active {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status.inactive {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* ✅ Responsive for Mobile (up to 768px) */
+@media (max-width: 768px) {
+  .banner-list-card {
+    position: relative;
+    margin-top: 400%;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 6px;
+    box-shadow: 0px 0 8px 3px rgba(128, 122, 122, 0.2);
+  }
+
+  .banner-list-card .content-box-header {
+    padding: 10px 15px;
+    text-align: center;
+  }
+
+  .banner-list-card .content-box-header h3 {
+    font-size: 16px;
+  }
+
+  .styled-table th,
+  .styled-table td {
+    font-size: 13px;
+    padding: 8px;
+    display: block;
+    text-align: right;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .styled-table th::before {
+    content: attr(data-label);
+    float: left;
+    font-weight: 600;
+    color: #333;
+  }
+
+  .styled-table tr {
+    display: block;
+    margin-bottom: 15px;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 0 5px rgba(128, 122, 122, 0.1);
+  }
+}
 </style>
+
+
