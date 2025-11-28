@@ -14,9 +14,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
     <title>User Details</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="js/jquery.notifyBar.js"></script>
     <link rel="stylesheet" href="css/notifyBar.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="css/reset.css" type="text/css" media="screen" />
@@ -51,7 +51,7 @@
         data: { state: state_id },
         success: function (data) {
              $("#editUserModal").html(data);
-            $("#editUserModal").modal("show");  // ONLY UPDATE CITY
+            $("#editUserModal").modal("show");  
         },
         error: function (jqXHR, textstatus, errorThrown) {
             console.log(textstatus, errorThrown);
@@ -159,7 +159,7 @@
                                         </td>
                                         <td>
                                            <a href="javascript:void(0)" title="Edit User"
-                                             onclick="show_data(<?php echo $fetch_user['id'];?>)">
+                                             onclick="show_data(<?php echo $fetch_user['id']?>);">
                                              <img src="images/edit_user.png" alt="Edit">
                                             </a>
                                             <a href="javascript:void(0)"

@@ -70,7 +70,7 @@ if(isset($_POST['login']))
 		<div id="login-content" style="width:400px; max-width:90%; padding:30px; background:transparent; 
 			border-radius:10px; box-shadow: 0 2px 4px 5px rgba(230, 229, 229, 0.45);
 			 text-align:center;">
-			<h4 style="margin-bottom:20px; color: #e0dedeff; font-size:20px;">Admin Login Panel</h4>
+			<h4 style="margin-bottom:20px; color: #e0dedeff; font-size:25px;">Admin Login Panel</h4>
 			<form method="post" id="login_form">
 				<div class="input-group"
 					style="display:flex; align-items:center; margin-bottom:10px; background:#f1f1f1; border-radius:5px; padding:5px 5px;">
@@ -85,13 +85,9 @@ if(isset($_POST['login']))
 					<input type="password" name="password" placeholder="Password"
 						style="width:100%; margin: 8px; border:none; background:transparent; outline:none; font-size:14px;">
 				</div>
-				<div
-					style="margin-top: 20px;display: flex;align-items: center;justify-content: space-between;gap: 10px;">
-					<a href="forgot_password.php" style="text-decoration: none;color: #ffffffff;font-size: 14px;">Forgot
-						Password?</a>
+				<div style="display: flex;align-items: center;justify-content: center;gap: 10px;">
 					<button type="submit" value="Sign In" name="login" style="background:#28a745; border:none; color:#fff; padding: 8px 16px;border-radius:5px;
-						 cursor:pointer; font-weight:bold; transition:0.3s;">sign
-						in</button>
+						 cursor:pointer; font-weight:bold; transition:0.3s;">sign in</button>
 				</div>
 			</form>
 		</div>
@@ -99,26 +95,7 @@ if(isset($_POST['login']))
 </body>
 
 </html>
-<?php 
-	if(isset($_SESSION['SET_FLASH']))
-	{
-		if($_SESSION['SET_TYPE']=='success')
-		{
-			echo "<script type='text/javascript'>showSuccess('".$_SESSION['SET_FLASH']."');</script>";
-		}
-		else if($_SESSION['SET_TYPE']=='error')
-		{
-			echo "<script type='text/javascript'>showError('".$_SESSION['SET_FLASH']."');</script>";
-		}
-	} 
 
-	//destroy session flash message
-	if(isset($_REQUEST['m']) && $_REQUEST['m']=='E')
-	{
-		unset($_SESSION['SET_FLASH']);
-		unset($_SESSION['SET_TYPE']);
-	}
-?>
 <style>
 	body {
 	overflow: hidden;    
@@ -205,3 +182,23 @@ if(isset($_POST['login']))
 	
 
 </style>
+<?php 
+	if(isset($_SESSION['SET_FLASH']))
+	{
+		if($_SESSION['SET_TYPE']=='success')
+		{
+			echo "<script type='text/javascript'>showSuccess('".$_SESSION['SET_FLASH']."');</script>";
+		}
+		else if($_SESSION['SET_TYPE']=='error')
+		{
+			echo "<script type='text/javascript'>showError('".$_SESSION['SET_FLASH']."');</script>";
+		}
+	} 
+
+	//destroy session flash message
+	// if(isset($_REQUEST['m']) && $_REQUEST['m']=='E')
+	// {
+	// 	unset($_SESSION['SET_FLASH']);
+	// 	unset($_SESSION['SET_TYPE']);
+	// }
+?>

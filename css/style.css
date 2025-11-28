@@ -45,6 +45,8 @@
   text-align: center;
   box-sizing: border-box;
 }
+
+
 @media (max-width: 992px) {
 	.sel_but_row{
 		padding-left: 20px;
@@ -1179,7 +1181,7 @@ textarea
 }
 .dfa:hover{
 	color: #000;
-	border: 1px solid red;
+	/* border: 1px solid red; */
 	background-color: #000 !important;
 }
 .dks
@@ -1582,8 +1584,8 @@ textarea
   display: block;
   margin: 15px auto 0 auto;
   .www.btn:hover {
-  background-color: #fff;
-  color: #fff;
+  	background-color: #fff;
+  	color: #fff;
 }
 }
 }

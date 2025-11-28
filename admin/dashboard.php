@@ -13,18 +13,24 @@
 		$Password = $_POST['password'];
 		$Confirm = $_POST['confirm'];
 
-		$update_rec = "UPDATE admin_master Set username='".$Name."',email_address='".$Email."',address='".$Address."',
-		Phone='".$Phone."', password='".$Password."'";
-		$run_update = mysqli_query($connect,$update_rec);
-		if($run_update)
-		{
-			header("location:dashboard.php");
+		if($Password == "") {
+			$update_rec = "UPDATE admin_master SET username='".$Name."', email_address='".$Email."',
+			address='".$Address."', Phone_no='".$Phone."'";
+			$run_update = mysqli_query($connect,$update_rec);
+		  
+		} else if($Password == $Confirm)
+			{
+				$Pass=md5($Password);
+				 $update_rec = "UPDATE admin_master SET username='".$Name."', email_address='".$Email."',
+				address='".$Address."', Phone_no='".$Phone."', password='".$Pass."'";
+				$run_update = mysqli_query($connect,$update_rec);
 		}
 		else
 		{
-			echo'<script>alert("Somthing Went Wrong")</script>';
+			echo '<script>alert("password and confirm password do not match")</script>';
 		}
 	}
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -138,25 +144,7 @@
 </body>
 
 </html>
-<?php 
-	if(isset($_SESSION['SET_FLASH']))
-	{
-		if($_SESSION['SET_TYPE']=='success')
-		{
-			echo "<script type='text/javascript'>showSuccess('".$_SESSION['SET_FLASH']."');</script>";
-		}
-		else if($_SESSION['SET_TYPE']=='error')
-		{
-			echo "<script type='text/javascript'>showError('".$_SESSION['SET_FLASH']."');</script>";
-		}
-	}
-
-	if(isset($_REQUEST['m']) && $_REQUEST['m']=='E')
-	{
-		unset($_SESSION['SET_FLASH']);
-		unset($_SESSION['SET_TYPE']);
-	}
-?>
+ 
 <style>
 	.content-box {
 		background: #fff;

@@ -25,41 +25,6 @@
 		}
 	}
 
-	// include("includes/main_init.php");
-	// if(!isset($_SESSION['id']))
-	// {
-	// 	header("location:index.php?login");
-	// }
-	
-	
-	// if(isset($_POST['add']))
-	// {
-		
-	// 	$name=stripslashes(trim($_POST['name']));
-	// 	$execute=array(':page_title'=>$name);
-    //     $exe_find_machine_cat_name=find("first", PAGE, "id", "where page_title=:page_title", $execute);
-		
-		
-	// 	if(empty($exe_find_machine_cat_name))
-	// 	{
-				
-	// 			$fields1="page_title";
-	// 			$values1=":page_title";
-	// 			$execute1=array(':page_title'=>$name);
-	// 			$sv_mchne=save(PAGE, $fields1, $values1, $execute1);
-
-	// 			if($sv_mchne)
-	// 			{
-	// 			header('location:list_pages.php?ins');
-	// 			}
-		 
-	// 	}	
-	// 	else
-	// 	{
-	// 	  $_SESSION['SET_TYPE'] = 'error';
-	//       $_SESSION['SET_FLASH'] = 'Same page title already exists';
-	// 	}
-	// }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -74,8 +39,6 @@
 	<link rel="stylesheet" href="css/reset.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
 	<script type="text/javascript" src="js/jquery.configuration.js"></script>
-
-
 
 	<script type="text/javascript" language="javascript" src="js/jquery.validationEngine.js"></script>
 	<script type="text/javascript" language="javascript" src="js/jquery.validationEngine-en.js"></script>
@@ -154,6 +117,9 @@
 <style>
 	body {
 		overflow: hidden;
+	}
+	#main-content{
+		margin-top: 50px;
 	}
 	.content-box {
 		background: #fff;
